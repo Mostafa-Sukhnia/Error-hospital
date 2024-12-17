@@ -52,10 +52,10 @@ const SignUp = () => {
         live,
         gender,
         phonNumber,
-        email,
+        email: user.email,  
         role,
       });
-      console.log("Logged in with Google and user data stored");
+      setSuccess(true);  
     } catch (error) {
       console.error(error);
       setError(error.message);
