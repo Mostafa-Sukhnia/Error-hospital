@@ -4,6 +4,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import app from "../config/firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../config/firebase.js";
+import { signOut } from "firebase/auth";
 
 const Header = () => {
   const [slidingMenu, setSlidingMenu] = useState(false);
@@ -24,7 +25,10 @@ const Header = () => {
     }
   };
 
-  
+    const SignOut = async () => {
+      console.log(auth.currentUser);
+    await signOut(auth);
+    };
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);  // Update user state on login/logout
@@ -132,28 +136,33 @@ const Header = () => {
 
       <div>
         <ul className="flex gap-4 max-lg:hidden">
-          <li>
-            {user ? (
-              <i className="fa-regular fa-user text-secondColor text-xl"></i>
-            ) : (
-              <Link
-                to="/signup"
-                className="bg-[#307BC4] p-2 rounded-lg text-white font-bold border-b-[2px] border-[#1b4b7a] shadow-md"
-              >
-                Sign Up
-              </Link>
-            )}
-          </li>
-          {!user && (
-            <li>
-              <Link
-                to="/signin"
-                className="border-2 border-[#307BC4] p-2 text-[#307BC4] font-bold rounded-lg shadow-lg hover:shadow-md hover:shadow-[#307BC4] duration-200"
-              >
-                Sign In
-              </Link>
-            </li>
-          )}
+        {user === null ? (
+  <>
+    <li>
+      <Link
+        to="/signup"
+        className="bg-[#307BC4] p-2 rounded-lg text-white font-bold border-b-[2px] border-[#1b4b7a] shadow-md"
+      >
+        Sign Up
+      </Link>
+    </li>
+    <li>
+      <Link
+        to="/signin"
+        className="border-2 border-[#307BC4] p-2 text-[#307BC4] font-bold rounded-lg shadow-lg hover:shadow-md hover:shadow-[#307BC4] duration-200"
+      >
+        Sign In
+      </Link>
+    </li>
+  </>
+) : (
+  <li>
+    <button onClick={SignOut} className="bg-[#307BC4] p-2 rounded-lg text-white font-bold">
+      Sign Out
+    </button>
+  </li>
+)}
+
         </ul>
       </div>
 
