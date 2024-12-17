@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   getAuth,
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
-  signOut,
-  onAuthStateChanged,
 } from "firebase/auth";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import app from "../config/firebase.js";
 import { db } from "../config/firebase.js";
 import { setDoc, doc } from "firebase/firestore";
@@ -29,10 +27,7 @@ const SignUp = () => {
   const [live, setLive] = useState("");
   const [gender, setGender] = useState("");
   const [from, setFrom] = useState("");
-  const [role, setRole] = useState("user");
-  const [agreeToTheTermsConditions, setAgreeToTheTermsConditions] =
-    useState(false);
-  const [user, setUser] = useState(null);
+  const [agreeToTheTermsConditions, setAgreeToTheTermsConditions] = useState(false);
   const [error, setError] = useState("");
   const [steps, setSteps] = useState(true);
   const [pointes, setPointes] = useState(".");
@@ -44,6 +39,7 @@ const SignUp = () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
+      
       await setDoc(doc(db, "users", user.uid), {
         fname,
           lname,
@@ -52,8 +48,8 @@ const SignUp = () => {
           live,
           gender,
           phonNumber,
-          email,
-          role,
+          email:user.email,
+          role:'user',
           isBanned: false,
           img: "",
       });
@@ -99,7 +95,7 @@ const SignUp = () => {
           gender,
           phonNumber,
           email,
-          role,
+          role:'user',
           isBanned: false,
           img: "",
         });
