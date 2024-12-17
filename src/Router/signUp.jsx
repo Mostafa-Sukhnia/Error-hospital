@@ -49,7 +49,8 @@ const SignUp = () => {
   
   const SignInWithGoogle = async () => {
     try {
-      await signInWithPopup(auth, googleProvider);
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user; 
       await setDoc(doc(db, "users", user.uid), {
         fname,
         lname,
@@ -61,12 +62,13 @@ const SignUp = () => {
         email,
         role,
       });
-      console.log("Logged in with Google");
+      console.log("Logged in with Google and user data stored");
     } catch (error) {
       console.error(error);
       setError(error.message);
     }
   };
+  
 
   const showHandling = () => {
     setSwowPassWord(!showPassWord);
