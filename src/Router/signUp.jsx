@@ -40,6 +40,39 @@ const SignUp = () => {
   const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
 
+  const SignInWithGoogle = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      await setDoc(doc(db, "users", user.uid), {
+        fname,
+          lname,
+          birth,
+          from,
+          live,
+          gender,
+          phonNumber,
+          email,
+          role,
+          isBanned: false,
+          img: "",
+      });
+      setSuccess(!success);  
+    } catch (error) {
+      console.error(error);
+      setError(error.message);
+    }
+  };
+
+  const showHandling = () => {
+    setSwowPassWord(!showPassWord);
+  };
+
+  const formHandileing = (e) => {
+    e.preventDefault();
+    console.log(fname, lname, phonNumber, gender, live, from, birth);
+  };
+
   const signUpHandling = async (e) => {
     e.preventDefault();
     if (
@@ -78,76 +111,6 @@ const SignUp = () => {
       }
     }
   };
-
-  // const SignInWithGoogle = async () => {
-  //   try {
-  //     const result = await signInWithPopup(auth, googleProvider);
-  //     const user = result.user;
-  //     await setDoc(doc(db, "users", user.uid), {
-  //       fname,
-  //       lname,
-  //       birth,
-  //       from,
-  //       live,
-  //       gender,
-  //       phonNumber,
-  //       email: user.email,  
-  //       role,
-  //     });
-  //     setSuccess(true);  
-  //   } catch (error) {
-  //     console.error(error);
-  //     setError(error.message);
-  //   }
-  // };
-
-  const showHandling = () => {
-    setSwowPassWord(!showPassWord);
-  };
-
-  const formHandileing = (e) => {
-    e.preventDefault();
-    console.log(fname, lname, phonNumber, gender, live, from, birth);
-  };
-
-  // const signUpHandling = async (e) => {
-  //   e.preventDefault();
-  //   if (
-  //     /^[a-z0-9](?:[a-z0-9_%+-]*\.[a-z0-9_%+-]+|[a-z0-9_%+-]*)@gmail\.com$/i.test(
-  //       email
-  //     ) &&
-  //     password.length >= 6 &&
-  //     agreeToTheTermsConditions &&
-  //     password === passwordConfirm
-  //   ) {
-  //     try {
-  //       const userCredential = await createUserWithEmailAndPassword(
-  //         auth,
-  //         email,
-  //         password
-  //       );
-  //       const user = userCredential.user;
-  //       await setDoc(doc(db, "users", user.uid), {
-  //         fname,
-  //         lname,
-  //         birth,
-  //         from,
-  //         live,
-  //         gender,
-  //         phonNumber,
-  //         email,
-  //         role,
-  //         isBanned: false,
-  //         img: "",
-  //       });
-  //       setSuccess(!success);
-  //     } catch (err) {
-  //       console.error(err);
-  //       setError(err);
-  //       console.log(error);
-  //     }
-  //   }
-  // };
   const SuccessHandling = () => {
     setInterval(() => {
       setPointes(pointes + ".");
@@ -515,7 +478,7 @@ const SignUp = () => {
 
             <button
               className="flex gap-3 items-center border-[1px] border-gray-300 pr-4 pl-2 py-2 rounded-lg w-full justify-between hover:bg-[#eee] duration-500 hover:text-[#4286f5]"
-              onClick={signUpHandling}
+              onClick={SignInWithGoogle}
             >
               <img
                 src={GoogleLogo}
