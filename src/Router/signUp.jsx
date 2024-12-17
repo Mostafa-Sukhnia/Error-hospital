@@ -40,17 +40,10 @@ const SignUp = () => {
   const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
 
-
-
-
-
-
-
-  
   const SignInWithGoogle = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
-      const user = result.user; 
+      const user = result.user;
       await setDoc(doc(db, "users", user.uid), {
         fname,
         lname,
@@ -68,7 +61,6 @@ const SignUp = () => {
       setError(error.message);
     }
   };
-  
 
   const showHandling = () => {
     setSwowPassWord(!showPassWord);
@@ -106,14 +98,14 @@ const SignUp = () => {
           phonNumber,
           email,
           role,
-          isBanned:false,
-          img:'',
+          isBanned: false,
+          img: "",
         });
         setSuccess(!success);
       } catch (err) {
         console.error(err);
-        setError(err)
-        console.log(error)
+        setError(err);
+        console.log(error);
       }
     }
   };
