@@ -10,26 +10,32 @@ const SuccessPage = () => {
   const [userData, setUserData] = useState(null);
   
   useEffect(() => {
-    // const fetchUserData = async () => {
+    const fetchUserData = async () => {
       const auth = getAuth(app);
-    //   const userRef = doc(db, "users", auth.currentUser.uid); // تأكد من أن المستخدم مسجل الدخول
-    //   const userSnapshot = await getDoc(userRef);
-console.log(auth);
-    //   if (userSnapshot.exists()) {
-    //     setUserData(userSnapshot.data()); // حفظ البيانات في الحالة
-    //   } else {
-    //     console.log("No such document!");
-    //   }
-    // };
+      const user = auth.currentUser;
+      if (user) {
+        const userRef = doc(db, "users", user.uid);
+        const userSnapshot = await getDoc(userRef);
+        
+        if (userSnapshot.exists()) {
+          setUserData(userSnapshot.data());
+        } else {
+          console.log("No such document!");
+        }
+      } else {
+        console.log("No user logged in!");
+        navigate("/signin");
+      }
+    };
 
-    // fetchUserData();
+    fetchUserData();
 
     const referer = document.referrer;
     console.log("Referrer:", referer);
     if (referer.startsWith("https://buy.stripe.com/")) {
       console.log("Redirected from Stripe");
     } else {
-      navigate("/");
+      navigate("/"); 
     }
   }, [navigate]);
 
