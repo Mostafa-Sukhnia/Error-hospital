@@ -7,7 +7,7 @@
 - pay is will be added
   ##
  - https: ```bash
-git clone https://error-barber.web.app
+git clone https://error-barber.web.app```
   - email: admin@gmail.com
   - password: adminone
    
