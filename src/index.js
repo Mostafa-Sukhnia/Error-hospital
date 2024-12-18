@@ -22,7 +22,6 @@ import SuccessPage from "./Router/SuccessPage.jsx";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
-
 const router = createBrowserRouter([
   {
     path: "/",
