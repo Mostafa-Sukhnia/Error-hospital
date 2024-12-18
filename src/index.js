@@ -74,7 +74,7 @@ const router = createBrowserRouter([
     element: <SignUp />,
   },
   {
-    path:'thankYou',
+    path:'SuccessPage',
     element:<SuccessPage/>
   },
   {
