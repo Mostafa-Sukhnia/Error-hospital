@@ -18,7 +18,7 @@ import DoctorsAndAppointments from "./Router/DoctorsAndAppointments.jsx";
 import Doctor from "./Router/doctor.jsx";
 import FindDoctor from "./pages/FindDoctor.jsx";
 import BookAnAppointment from "./Router/BookAnAppointment.jsx";
-import ThankYou from "./pages/ThankYou.jsx";
+import SuccessPage from "./Router/SuccessPage.jsx";
 
 
 const container = document.getElementById("root");
@@ -75,7 +75,7 @@ const router = createBrowserRouter([
   },
   {
     path:'thankYou',
-    element:<ThankYou/>
+    element:<SuccessPage/>
   },
   {
     path: "admin",
