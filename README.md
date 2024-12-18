@@ -9,3 +9,8 @@
  - https://error-barber.web.app
   - email: admin@gmail.com
   - password: adminone
+    # كود قابل للنسخ
+
+```bash
+git clone https://github.com/username/repository.git
+
