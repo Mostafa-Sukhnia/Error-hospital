@@ -1,20 +1,17 @@
-import React,{useEffect} from 'react'
-import { useNavigate } from 'react-router-dom'
+import React,{ useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const SuccessPage = () => {
+  const { status } = useParams();
+  const navigate = useNavigate();
 
-const navigate = useNavigate();
-useEffect(()=>{
-    const urlParams = new URLSearchParams(window.location.search);
-    const paymentStatus = urlParams.get("payment_status");
-    if(paymentStatus !== 'success'){
-        navigate('/')
+  useEffect(() => {
+    if (status !== 'success') {
+      navigate('/');
     }
-},[navigate])
+  }, [status, navigate]);
 
-  return (
-    <div>SuccessPage</div>
-  )
-}
+  return <div>SuccessPage</div>;
+};
 
-export default SuccessPage
+export default SuccessPage;

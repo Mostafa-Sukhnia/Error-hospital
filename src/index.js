@@ -34,6 +34,10 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
+        path: '*',
+        element: <div>Page Not Found</div>,
+      },      
+      {
         path: "BookPosition",
         element: (
           <ProtectedPages>
@@ -74,8 +78,9 @@ const router = createBrowserRouter([
     element: <SignUp />,
   },
   {
-    path:'SuccessPage',
-    element:<SuccessPage/>
+    
+      path: 'SuccessPage/success',
+      element: <SuccessPage />
   },
   {
     path: "admin",
