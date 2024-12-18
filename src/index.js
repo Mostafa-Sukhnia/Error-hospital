@@ -79,7 +79,7 @@ const router = createBrowserRouter([
   },
   {
     
-      path: 'SuccessPage/success',
+      path: 'SuccessPage',
       element: <SuccessPage />
   },
   {

@@ -1,17 +1,19 @@
-import React,{ useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React,{useEffect} from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const SuccessPage = () => {
-  const { status } = useParams();
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (status !== 'success') {
-      navigate('/');
+const navigate = useNavigate();
+useEffect(()=>{
+    const refererr = document.referrer;
+    if(refererr !== 'https://buy.stripe.com'){
+        navigate('/');
     }
-  }, [status, navigate]);
+},[navigate])
 
-  return <div>SuccessPage</div>;
-};
+  return (
+    <div>SuccessPage</div>
+  )
+}
 
-export default SuccessPage;
+export default SuccessPage
