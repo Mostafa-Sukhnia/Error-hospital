@@ -11,14 +11,14 @@ const SuccessPage = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       const auth = getAuth();
-      const user = auth.currentUser; 
+      const user = auth.currentUser;
 
       if (user) {
-        const userRef = doc(db, "users", user.uid); 
-        const userSnapshot = await getDoc(userRef); 
-console.log(userSnapshot);
+        const userRef = doc(db, "users", user.uid);
+        const userSnapshot = await getDoc(userRef);
+        console.log(userSnapshot);
         if (userSnapshot.exists()) {
-          setUserData(userSnapshot.data()); 
+          setUserData(userSnapshot.data());
         } else {
           console.log("No user data found");
         }
@@ -29,7 +29,7 @@ console.log(userSnapshot);
     const referer = document.referrer;
     if (referer.startsWith("https://buy.stripe.com/")) {
       console.log("Redirected from Stripe");
-    } 
+    }
   }, [navigate]);
 
   return (
