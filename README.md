@@ -5,7 +5,8 @@
 - he have a admin
   ##
   - email: admin@gmail.com
-  - password: adminone
+  - password:<span style="color: red;"> adminone
+</span>
 - have an checked your doctor
 - pay is will be added
 ###
