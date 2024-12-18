@@ -16,7 +16,7 @@ const SuccessPage = () => {
       if (user) {
         const userRef = doc(db, "users", user.uid);
         const userSnapshot = await getDoc(userRef);
-        
+        console.log(userSnapshot);
         if (userSnapshot.exists()) {
           setUserData(userSnapshot.data());
         } else {
