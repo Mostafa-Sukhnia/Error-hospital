@@ -69,14 +69,14 @@ const Header = () => {
           <div className="w-full h-[81vh] bg-gray-100"></div>
           <div className="w-full h-[0.5px] bg-gray-300 block"></div>
           <div className="w-full h-[12vh] shadow-lg flex items-center justify-between px-4">
-            <ul className="flex gap-4 max-lg:hidden">
+            <ul className="flex gap-4 w-full lg:hidden justify-between">
               <li>
                 {user ? (
                   <i className="fa-regular fa-user"></i>
                 ) : (
                   <Link
                     to="/signup"
-                    className="bg-[#307BC4] p-2 rounded-lg text-white font-bold border-b-[2px] border-[#1b4b7a] shadow-md"
+                    className="bg-[#307BC4] p-2 rounded-lg text-white font-bold border-b-[2px] border-[#1b4b7a] shadow-md w-1/2"
                   >
                     Sign Up
                   </Link>
@@ -86,7 +86,7 @@ const Header = () => {
                 <li>
                   <Link
                     to="/signin"
-                    className="border-2 border-[#307BC4] p-2 text-[#307BC4] font-bold rounded-lg shadow-lg hover:shadow-md hover:shadow-[#307BC4] duration-200"
+                    className="border-2 border-[#307BC4] p-2 text-[#307BC4] font-bold rounded-lg shadow-lg hover:shadow-md hover:shadow-[#307BC4] duration-200 w-1/2"
                   >
                     Sign In
                   </Link>
@@ -134,7 +134,7 @@ const Header = () => {
         </ul>
 
         <div>
-          <ul className="flex gap-4 lg:hidden">
+          <ul className="flex gap-4 max-lg:hidden">
             {user === null ? (
               <>
                 <li>
