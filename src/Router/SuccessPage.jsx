@@ -11,14 +11,14 @@ const SuccessPage = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       const auth = getAuth();
-      const user = auth.currentUser; // الحصول على المستخدم الحالي
+      const user = auth.currentUser; 
 
       if (user) {
-        const userRef = doc(db, "users", user.uid); // الوصول إلى مستند المستخدم
-        const userSnapshot = await getDoc(userRef); // جلب المستند
-
+        const userRef = doc(db, "users", user.uid); 
+        const userSnapshot = await getDoc(userRef); 
+console.log(userSnapshot);
         if (userSnapshot.exists()) {
-          setUserData(userSnapshot.data()); // حفظ البيانات في الحالة
+          setUserData(userSnapshot.data()); 
         } else {
           console.log("No user data found");
         }
@@ -26,14 +26,10 @@ const SuccessPage = () => {
     };
 
     fetchUserData();
-
-    // التحقق من الـ referrer
     const referer = document.referrer;
     if (referer.startsWith("https://buy.stripe.com/")) {
       console.log("Redirected from Stripe");
-    } else {
-      navigate("/"); // إذا لم يكن من Stripe، قم بإعادة توجيه المستخدم إلى الصفحة الرئيسية
-    }
+    } 
   }, [navigate]);
 
   return (
