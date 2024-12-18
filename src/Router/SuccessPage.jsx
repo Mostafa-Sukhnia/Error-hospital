@@ -6,9 +6,13 @@ const SuccessPage = () => {
 
   useEffect(() => {
     const referer = document.referrer;
-
+    // تحقق من أن referer هو رابط Stripe
     if (!referer.startsWith("https://buy.stripe.com/")) {
-      navigate("/");
+      console.log(referer);
+      console.log("expected you is : https://buy.stripe.com/");
+      setTimeout(() => {
+        navigate("/"); // إعادة التوجيه بعد تأخير إذا لم يكن من Stripe
+      }, 100); // تأخير بمقدار 100 مللي ثانية للتأكد من تنفيذ التوجيه بشكل صحيح
     }
   }, [navigate]);
 
