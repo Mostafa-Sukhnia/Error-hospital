@@ -10,19 +10,19 @@ const SuccessPage = () => {
   const [userData, setUserData] = useState(null);
   
   useEffect(() => {
-    const fetchUserData = async () => {
+    // const fetchUserData = async () => {
       const auth = getAuth(app);
-      const userRef = doc(db, "users", auth.currentUser.uid); // تأكد من أن المستخدم مسجل الدخول
-      const userSnapshot = await getDoc(userRef);
+    //   const userRef = doc(db, "users", auth.currentUser.uid); // تأكد من أن المستخدم مسجل الدخول
+    //   const userSnapshot = await getDoc(userRef);
+console.log(auth);
+    //   if (userSnapshot.exists()) {
+    //     setUserData(userSnapshot.data()); // حفظ البيانات في الحالة
+    //   } else {
+    //     console.log("No such document!");
+    //   }
+    // };
 
-      if (userSnapshot.exists()) {
-        setUserData(userSnapshot.data()); // حفظ البيانات في الحالة
-      } else {
-        console.log("No such document!");
-      }
-    };
-
-    fetchUserData();
+    // fetchUserData();
 
     const referer = document.referrer;
     console.log("Referrer:", referer);
