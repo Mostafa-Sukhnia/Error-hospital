@@ -6,11 +6,11 @@
 - have an checked your doctor
 - pay is will be added
   ##
- - https://error-barber.web.app
+ - https: ```bash
+git clone https://error-barber.web.app
   - email: admin@gmail.com
   - password: adminone
-    # كود قابل للنسخ
+   
 
-```bash
-git clone https://github.com/username/repository.git
+
 
