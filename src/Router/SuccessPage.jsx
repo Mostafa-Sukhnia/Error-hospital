@@ -13,25 +13,31 @@ const SuccessPage = () => {
     const fetchUserData = async () => {
       const auth = getAuth(app);
       const user = auth.currentUser;
+
       if (user) {
         const userRef = doc(db, "users", user.uid);
         const userSnapshot = await getDoc(userRef);
-        console.log(userSnapshot);
+
         if (userSnapshot.exists()) {
           setUserData(userSnapshot.data());
+        } else {
+          console.log("No user data found");
         }
-      }
-
-      fetchUserData();
-
-      const referer = document.referrer;
-      console.log("Referrer:", referer);
-      if (referer.startsWith("https://buy.stripe.com/")) {
-        console.log("Redirected from Stripe");
       } else {
-        navigate("/");
+        console.log("No user logged in");
+        navigate("/signin");
       }
     };
+
+    fetchUserData();
+
+    const referer = document.referrer;
+    console.log("Referrer:", referer);
+    if (referer.startsWith("https://buy.stripe.com/")) {
+      console.log("Redirected from Stripe");
+    } else {
+      navigate("/");
+    }
   }, [navigate]);
 
   return (
