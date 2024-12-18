@@ -18,6 +18,7 @@ import DoctorsAndAppointments from "./Router/DoctorsAndAppointments.jsx";
 import Doctor from "./Router/doctor.jsx";
 import FindDoctor from "./pages/FindDoctor.jsx";
 import BookAnAppointment from "./Router/BookAnAppointment.jsx";
+import ThankYou from "./pages/ThankYou.jsx";
 
 
 const container = document.getElementById("root");
@@ -71,6 +72,10 @@ const router = createBrowserRouter([
   {
     path: "signup",
     element: <SignUp />,
+  },
+  {
+    path:'thankYou',
+    element:<ThankYou/>
   },
   {
     path: "admin",
