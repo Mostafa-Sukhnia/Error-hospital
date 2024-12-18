@@ -20,7 +20,6 @@ import FindDoctor from "./pages/FindDoctor.jsx";
 import BookAnAppointment from "./Router/BookAnAppointment.jsx";
 import SuccessPage from "./Router/SuccessPage.jsx";
 
-
 const container = document.getElementById("root");
 const root = createRoot(container);
 
@@ -34,9 +33,9 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: '*',
+        path: "*",
         element: <div>Page Not Found</div>,
-      },      
+      },
       {
         path: "BookPosition",
         element: (
@@ -78,9 +77,8 @@ const router = createBrowserRouter([
     element: <SignUp />,
   },
   {
-    
-      path: 'SuccessPage',
-      element: <SuccessPage />
+    path: "SuccessPage",
+    element: <SuccessPage />,
   },
   {
     path: "admin",
