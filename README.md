@@ -22,5 +22,9 @@ Use the following credentials to log in as an admin:
 ## Clone the Project
 To clone this repository, use the following command:
 
+## Contact Me
+Feel free to connect with me on LinkedIn:  
+[My LinkedIn Profile](https://www.linkedin.com/in/mustafa-sukhnia-644582330)
+
 ```bash
 git clone https://error-barber.web.app
