@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import app from '../config/firebase.js';
-import { db } from '../config/firebase.js';
+import app from "../config/firebase.js";
+import { db } from "../config/firebase.js";
 import { getAuth } from "firebase/auth";
 import { getDoc, doc } from "firebase/firestore";
 
 const SuccessPage = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState(null);
-  
+
   useEffect(() => {
     const fetchUserData = async () => {
       const auth = getAuth(app);
@@ -19,24 +19,19 @@ const SuccessPage = () => {
         console.log(userSnapshot);
         if (userSnapshot.exists()) {
           setUserData(userSnapshot.data());
-        } else {
-          console.log("No such document!");
         }
+      }
+
+      fetchUserData();
+
+      const referer = document.referrer;
+      console.log("Referrer:", referer);
+      if (referer.startsWith("https://buy.stripe.com/")) {
+        console.log("Redirected from Stripe");
       } else {
-        console.log("No user logged in!");
-        navigate("/signin");
+        navigate("/");
       }
     };
-
-    fetchUserData();
-
-    const referer = document.referrer;
-    console.log("Referrer:", referer);
-    if (referer.startsWith("https://buy.stripe.com/")) {
-      console.log("Redirected from Stripe");
-    } else {
-      navigate("/"); 
-    }
   }, [navigate]);
 
   return (
