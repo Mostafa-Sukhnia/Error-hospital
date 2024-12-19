@@ -20,9 +20,15 @@ const SuccessPage = () => {
       const unsubscribe = onAuthStateChanged(auth, async (user) => {
         if (user) {
           try {
-            const userRef = await getDoc(doc(db, "users", user.uid));
-            const userData = userRef.data();
-            console.log("User data:", userData);
+            const userRef = doc(db, "users", user.uid);
+            const userSnapshot = await getDoc(userRef);
+
+            if (userSnapshot.exists()) {
+              const userData = userSnapshot.data();
+              console.log("User data:", userData);
+            } else {
+              console.error("No user data found!");
+            }
           } catch (error) {
             console.error("Error fetching user data:", error);
           }
