@@ -3,25 +3,37 @@ import { useNavigate } from "react-router-dom";
 import { db } from "../config/firebase";
 import app from "../config/firebase.js";
 import { doc, getDoc } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
-import { aside } from "motion/react-client";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
 const SuccessPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
     const auth = getAuth(app);
     const referer = document.referrer;
+
     console.log("Referrer:", referer);
+
     if (referer.startsWith("https://buy.stripe.com/")) {
       console.log("Redirected from Stripe");
-      if (auth) {
-        const getData = async () => {
-          const userRef = await getDoc(doc(db, "users", auth.currentUser.uid));
-          return userRef;
-        };
-        const user = getData().data();
-        console.log(user);
-      }
+
+      const unsubscribe = onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          try {
+            const userRef = await getDoc(doc(db, "users", user.uid));
+            const userData = userRef.data();
+            console.log("User data:", userData);
+          } catch (error) {
+            console.error("Error fetching user data:", error);
+          }
+        } else {
+          console.error("No user is logged in.");
+          navigate("/");
+        }
+      });
+
+      // تنظيف الاستماع عند الخروج
+      return () => unsubscribe();
     } else {
       navigate("/");
     }
