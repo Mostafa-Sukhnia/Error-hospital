@@ -18,7 +18,7 @@ import DoctorsAndAppointments from "./Router/DoctorsAndAppointments.jsx";
 import Doctor from "./Router/doctor.jsx";
 import FindDoctor from "./pages/FindDoctor.jsx";
 import BookAnAppointment from "./Router/BookAnAppointment.jsx";
-import SuccessPage from "./Router/SuccessPage.jsx";
+
 
 const container = document.getElementById("root");
 const root = createRoot(container);
@@ -74,10 +74,6 @@ const router = createBrowserRouter([
   {
     path: "signup",
     element: <SignUp />,
-  },
-  {
-    path: "SuccessPage",
-    element: <SuccessPage />,
   },
   {
     path: "admin",

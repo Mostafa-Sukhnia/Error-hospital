@@ -2,34 +2,109 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../config/firebase.js";
+import { updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
+import app from "../config/firebase.js";
+import { getAuth } from "firebase/auth";
+import emailjs from "emailjs-com";
 const BookAnAppointment = () => {
   const { id } = useParams();
   const [doctor, setDoctor] = useState({});
   const [loading, setLoading] = useState(true);
   const [daySelected, setDaySelected] = useState("");
   const [allDateSelected, setAllDateSelected] = useState("");
-  const handleCheckout = () => {
-    // استبدل الرابط بـ الرابط الذي تم إنشاؤه في Stripe
-    window.location.href = 'https://buy.stripe.com/test_dR65nt3HF00ybxCaEE'; 
-  };
-  // جلب بيانات الطبيب
+
   useEffect(() => {
     const fetchDoctorData = async () => {
-      setLoading(true); // بدأ تحميل البيانات
+      setLoading(true);
       try {
         const userRef = doc(db, "users", id);
         const user = await getDoc(userRef);
         const doctorData = user.data();
         setDoctor(doctorData);
-        
       } catch (error) {
         console.error("Error fetching doctor data:", error);
       } finally {
-        setLoading(false); // إيقاف الـ loading بعد جلب البيانات
+        setLoading(false);
       }
     };
     fetchDoctorData();
   }, [id]);
+
+  const auth = getAuth(app);
+  const bookHandler = async () => {
+    console.log(auth.currentUser.email,
+      auth.currentUser.displayName,
+      allDateSelected)
+    try {
+      // تحويل allDateSelected إلى كائن Date
+      const selectedDate = new Date(allDateSelected);
+
+      // استرداد بيانات الموعد المحدد
+      const selectedAppointment = doctor.appointments.find(
+        (appointment) =>
+          appointment?.timeSlot?.start.toDate().toISOString() ===
+          selectedDate.toISOString()
+      );
+
+      if (!selectedAppointment) {
+        console.error("Appointment not found.");
+        return;
+      }
+
+      // تحديث بيانات الموعد: تعيين الحالة إلى "busy" وإضافة patientId
+      const updatedAppointment = {
+        ...selectedAppointment,
+        status: "busy",
+        patientId: auth.currentUser.uid, // افتراض أنك تستخدم auth
+      };
+
+      // إزالة الموعد القديم
+      await updateDoc(doc(db, "users", id), {
+        appointments: arrayRemove(selectedAppointment),
+      });
+
+      // إضافة الموعد الجديد
+      await updateDoc(doc(db, "users", id), {
+        appointments: arrayUnion(updatedAppointment),
+      });
+
+      const sendEmail = (userEmail, userName, appointmentDate) => {
+        const templateParams = {
+          user_email: userEmail,
+          user_name: userName,
+          appointment_date: appointmentDate,
+        };
+
+        emailjs
+          .send(
+            "service_dc0jfvm", // استبدل بـ Service ID
+            "template_85opurc", // استبدل بـ Template ID
+            templateParams,
+            "B34V_267Xdt6xwStX" // استبدل بـ Public Key
+          )
+          .then(
+            (response) => {
+              console.log(
+                "Email sent successfully!",
+                response.status,
+                response.text
+              );
+            },
+            (error) => {
+              console.error("Failed to send email:", error);
+            }
+          );
+      };
+      sendEmail(
+        auth.currentUser.email,
+        auth.currentUser.displayName,
+        allDateSelected
+      );
+      console.log("Appointment updated successfully.");
+    } catch (error) {
+      console.error("Error updating appointment:", error);
+    }
+  };
 
   if (loading) {
     return (
@@ -114,7 +189,9 @@ const BookAnAppointment = () => {
             </div>
           </div>
           <div className="bg-white shadow-md flex-grow rounded-lg p-2 relative overflow-hidden">
-            <p className="text-center text-lg font-bold text-blue-400">Get your Book an Appointment</p>
+            <p className="text-center text-lg font-bold text-blue-400">
+              Get your Book an Appointment
+            </p>
             <div>
               <ul className="flex justify-center flex-wrap gap-4 w-full mt-4 ">
                 {(() => {
@@ -123,7 +200,7 @@ const BookAnAppointment = () => {
                     try {
                       if (!appointment.timeSlot?.start) return null;
                       const startDate = appointment.timeSlot.start.toDate();
-                    
+
                       const dayName = startDate.toLocaleDateString("en-US", {
                         weekday: "short",
                       });
@@ -159,61 +236,62 @@ const BookAnAppointment = () => {
                 })()}
               </ul>
               <div>
-              <div className="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 w-[80%] mx-auto mt-10 gap-3">
-  {daySelected === "" ? (
-    <div className="text-blue-600 z-10 w-full text-center col-span-5">Select a day please!!</div>
-  ) : (
-    doctor.appointments
-      .filter(
-        (appointment) =>
-          appointment?.timeSlot?.start.toDate().getDate() === daySelected &&
-          appointment.status !== "busy"
-      )
-      .map((item) => (
-        <div
-          key={item.timeSlot.start} // مفتاح فريد لكل عنصر
-          onClick={() => setAllDateSelected(String(item.timeSlot.start.toDate()))}
-          className={`${
-            allDateSelected !== String(item.timeSlot.start.toDate()) ? "" : "border-blue-400"
-          } w-fit p-2 px-6 bg-[rgba(255,255,255,0.1)] shadow-md backdrop-blur-md rounded-full z-10 border border-gray-200 text-blue-600 cursor-pointer duration-500`}
-        >
-          {`${String(item.timeSlot.start.toDate().getHours()).padStart(2, "0")}:${String(
-            item.timeSlot.start.toDate().getMinutes()
-          ).padStart(2, "0")}`}
-        </div>
-      ))
-  )}
-</div>
-
+                <div className="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 w-[80%] mx-auto mt-10 gap-3">
+                  {daySelected === "" ? (
+                    <div className="text-blue-600 z-10 w-full text-center col-span-5">
+                      Select a day please!!
+                    </div>
+                  ) : (
+                    doctor.appointments
+                      .filter(
+                        (appointment) =>
+                          appointment?.timeSlot?.start.toDate().getDate() ===
+                            daySelected && appointment.status !== "busy"
+                      )
+                      .map((item) => (
+                        <div
+                          key={item.timeSlot.start}
+                          onClick={() => {
+                            setAllDateSelected(
+                              String(item.timeSlot.start.toDate())
+                            );
+                            console.log(item.timeSlot.start.toDate());
+                          }}
+                          className={`${
+                            allDateSelected !==
+                            String(item.timeSlot.start.toDate())
+                              ? ""
+                              : "border-blue-400"
+                          } w-fit p-2 px-6 bg-[rgba(255,255,255,0.1)] shadow-md backdrop-blur-md rounded-full z-10 border border-gray-200 text-blue-600 cursor-pointer duration-500`}
+                        >
+                          {`${String(
+                            item.timeSlot.start.toDate().getHours()
+                          ).padStart(2, "0")}:${String(
+                            item.timeSlot.start.toDate().getMinutes()
+                          ).padStart(2, "0")}`}
+                        </div>
+                      ))
+                  )}
+                </div>
               </div>
             </div>
             <div className="absolute top-[20%] right-[-20%] w-[470px] h-[470px] rounded-full bg-gradient-to-t animate-move from-blue-200 via-white to-[rgba(48,123,196,0.1)] bg-blue-400 opacity-50"></div>
-   {
-    allDateSelected !== '' ? (
-      <div style={{ textAlign: 'center', marginTop: '10px',zIndex:'10' }}>
-      <button
-        onClick={handleCheckout}
-        style={{
-          backgroundColor: '#6772E5',
-          color: '#fff',
-          padding: '10px 20px',
-          border: 'none',
-          borderRadius: '5px',
-          fontSize: '16px',
-          cursor: 'pointer',
-    zIndex:'100'      
-        }}
-    
-      >
-       Bay now
-      </button>
-    </div>
-    ):(
-      ''
-    )
-    
-   }
-
+            {allDateSelected !== "" ? (
+              <div
+                style={{ textAlign: "center", marginTop: "10px", zIndex: "10" }}
+              >
+                <button
+                  onClick={() => {
+                    console.log("hour:", allDateSelected);
+                    console.log(bookHandler());
+                  }}
+                >
+                  Book a place
+                </button>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>
@@ -222,5 +300,3 @@ const BookAnAppointment = () => {
 };
 
 export default BookAnAppointment;
-
-
