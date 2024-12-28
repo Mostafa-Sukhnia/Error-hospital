@@ -7,3 +7,7 @@
 .container {
   @apply w-[80%] mx-auto p-4 max-sm:w-full
 }
+
+*{
+  @apply transition-colors duration-200;
+}

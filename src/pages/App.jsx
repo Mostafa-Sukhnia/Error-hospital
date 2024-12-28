@@ -1,14 +1,19 @@
-import { Fragment } from "react";
+import { useSelector } from "react-redux";
+
 import { Outlet } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 const App = () => {
+  const mode = useSelector((state) => state.state.mode);
+
   return (
-    <Fragment>
+    <div className={`${mode? 'dark' :''}`}>
+      <div className={`${mode ? 'bg-[#212121]':''}`}>
       <Header />
-      <Outlet />
+      <Outlet/>
       <Footer />
-    </Fragment>
+      </div>
+    </div>
   );
 };
 

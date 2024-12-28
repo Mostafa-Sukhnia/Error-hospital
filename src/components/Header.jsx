@@ -5,8 +5,9 @@ import app from "../config/firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../config/firebase.js";
 import { signOut } from "firebase/auth";
-
+import { useSelector } from "react-redux";
 const Header = () => {
+  const mode = useSelector((state) => state.state.mode);
   const [slidingMenu, setSlidingMenu] = useState(false);
   const [user, setUser] = useState(null);
   const auth = getAuth(app);
@@ -43,137 +44,135 @@ const Header = () => {
   }, [auth]);
 
   return (
-    <div className="w-full shadow-lg">
-      <header className="font-poppins container flex justify-between py-4 items-center">
-        <div
-          className={`fixed top-0 right-0 ${
-            slidingMenu ? "w-[80%]" : "w-0"
-          } transition-all duration-500 h-screen bg-[#eee] z-50`}
-        >
+    <div className={`w-full shadow-lg ${mode ? "dark" : ""}`}>
+      <div className="dark:bg-[#121212]">
+        <header className="font-poppins container flex justify-between py-4 items-center ">
           <div
-            className={`w-[100%] h-full bg-[#307bc4] duration-500 delay-500 absolute top-0 left-0 z-[1000] redred ${
-              slidingMenu ? "!w-[0%]" : "delay-0 duration-[300ms] !w-[100%]"
-            }`}
-          ></div>
+            className={`fixed top-0 right-0 ${
+              slidingMenu ? "w-[80%]" : "w-0"
+            } transition-all duration-500 h-screen bg-[#eee] z-50`}
+          >
+            <div
+              className={`w-[100%] h-full bg-[#307bc4] duration-500 delay-500 absolute top-0 left-0 z-[1000] redred ${
+                slidingMenu ? "!w-[0%]" : "delay-0 duration-[300ms] !w-[100%]"
+              } dark:bg-[#212121]`}
+            ></div>
 
-          <div className="w-full flex justify-between items-center text-siteColor pb-4 border-b-[0.5px] border-gray-300 px-4 shadow-md pt-[20px]">
-            <p className="font-bold text-2xl">
-              Se<span className="text-secondColor">tt</span>ings
-            </p>
-            <div className="relative">
-              <i className="fa-solid fa-gear animate-spin text-2xl"></i>
-              <i className="fa-solid fa-gear absolute top-4 right-6 animate-spin text-secondColor"></i>
+            <div className="w-full flex justify-between items-center text-siteColor pb-4 border-b-[0.5px] border-gray-300 px-4 shadow-md pt-[20px] dark:bg-[#22262B] ">
+              <p className="font-bold text-2xl">
+                Se<span className="text-secondColor">tt</span>ings
+              </p>
+              <div className="relative">
+                <i className="fa-solid fa-gear animate-spin text-2xl"></i>
+                <i className="fa-solid fa-gear absolute top-4 right-6 animate-spin text-secondColor"></i>
+              </div>
             </div>
-          </div>
-          <div className="w-full h-[0.5px] bg-gray-300 block"></div>
-          <div className="w-full h-[81vh] bg-gray-100"></div>
-          <div className="w-full h-[0.5px] bg-gray-300 block"></div>
-          <div className="w-full h-[12vh] shadow-lg flex items-center justify-between px-4">
-            <ul className="flex gap-4 w-full lg:hidden justify-between">
-              <li>
-                {user ? (
-                  <i className="fa-regular fa-user"></i>
-                ) : (
-                  <Link
-                    to="/signup"
-                    className="bg-[#307BC4] p-2 rounded-lg text-white font-bold border-b-[2px] border-[#1b4b7a] shadow-md w-1/2"
-                  >
-                    Sign Up
-                  </Link>
-                )}
-              </li>
-              {!user && (
+
+            <div className="w-full h-[81vh] bg-gray-100 dark:bg-[#1E1E1E]"></div>
+
+            <div className="w-full h-[12vh] shadow-lg flex items-center justify-between px-4 dark:bg-[#22262B]">
+              <ul className="flex gap-4 w-full lg:hidden justify-between">
                 <li>
-                  <Link
-                    to="/signin"
-                    className="border-2 border-[#307BC4] p-2 text-[#307BC4] font-bold rounded-lg shadow-lg hover:shadow-md hover:shadow-[#307BC4] duration-200 w-1/2"
+                  {user ? (
+                            <button onClick={SignOut}>sign out</button>
+                  ) : (
+                    <Link
+                      to="/signup"
+                      className="bg-[#307BC4] p-2 rounded-lg text-white font-bold border-b-[2px] border-[#1b4b7a] shadow-md w-1/2"
+                    >
+                      Sign Up
+                    </Link>
+                  )}
+                </li>
+                {!user && (
+                  <li>
+                    <Link
+                      to="/signin"
+                      className="border-2 border-[#307BC4] p-2 text-[#307BC4] font-bold rounded-lg shadow-lg hover:shadow-md hover:shadow-[#307BC4] duration-200 w-1/2"
+                    >
+                      Sign In
+                    </Link>
+                  </li>
+                )}
+              </ul>
+            </div>
+
+            <i
+              className={`fa-solid fa-circle-xmark absolute z-[100] top-[50%] left-[-18px] text-4xl duration-500 delay-[600ms] cursor-pointer ${
+                slidingMenu === false
+                  ? "rotate-180 left-[18px] text-blue-500"
+                  : "left-[-18px] text-[#307bc4]"
+              }`}
+              onClick={() => {
+                setSlidingMenu(!slidingMenu);
+              }}
+            ></i>
+          </div>
+          <Link to="/" className="text-3xl font-bold text-[#274760]">
+            E<span className="text-[#307BC4]">rr</span>or
+          </Link>
+
+          <ul className="flex gap-6 max-lg:hidden text-[#274760] dark:text-secondColor ">
+            <li>
+              <NavLink className="hover:text-blue-400" to="/about">
+                About
+              </NavLink>
+            </li>
+            <li>
+              <NavLink className="hover:text-blue-400" to="/find-doctor">
+                Find Doctor
+              </NavLink>
+            </li>
+
+            <li>
+              <NavLink className="hover:text-blue-400" to="/contact">
+                Contact
+              </NavLink>
+            </li>
+          </ul>
+
+          <div>
+            <ul className="flex gap-4 max-lg:hidden">
+              {user === null ? (
+                <>
+                  <li>
+                    <Link
+                      to="/signup"
+                      className="bg-[#307BC4] p-2 rounded-lg text-white font-bold border-b-[2px] border-[#1b4b7a] shadow-md"
+                    >
+                      Sign Up
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/signin"
+                      className="border-2 border-[#307BC4] p-2 text-[#307BC4] font-bold rounded-lg shadow-lg hover:shadow-md hover:shadow-[#307BC4] duration-200"
+                    >
+                      Sign In
+                    </Link>
+                  </li>
+                </>
+              ) : (
+                <li>
+                  <button
+                    onClick={SignOut}
+                    className="bg-[#307BC4] p-2 rounded-lg text-white font-bold"
                   >
-                    Sign In
-                  </Link>
+                    Sign Out
+                  </button>
                 </li>
               )}
             </ul>
           </div>
 
           <i
-            className={`fa-solid fa-circle-xmark absolute z-[100] top-[50%] left-[-18px] text-4xl duration-500 delay-[600ms] cursor-pointer ${
-              slidingMenu === false
-                ? "rotate-180 left-[18px] text-blue-500"
-                : "left-[-18px] text-[#307bc4]"
-            }`}
+            className="fa-solid fa-bars block text-2xl text-secondColor cursor-pointer lg:hidden"
             onClick={() => {
               setSlidingMenu(!slidingMenu);
             }}
           ></i>
-        </div>
-        <Link to="/" className="text-3xl font-bold text-[#274760]">
-          E<span className="text-[#307BC4]">rr</span>or
-        </Link>
-
-        <ul className="flex gap-6 max-lg:hidden">
-          <li>
-            <NavLink className="text-[#274760]" to="/about">
-              About
-            </NavLink>
-          </li>
-          <li>
-            <NavLink className="text-[#274760]" to="/find-doctor">
-              Find Doctor
-            </NavLink>
-          </li>
-          <li>
-            <NavLink className="text-[#274760]" to="/pages">
-              Pages <i className="fa-solid fa-chevron-down text-[#307BC4]"></i>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink className="text-[#274760]" to="/contact">
-              Contact
-            </NavLink>
-          </li>
-        </ul>
-
-        <div>
-          <ul className="flex gap-4 max-lg:hidden">
-            {user === null ? (
-              <>
-                <li>
-                  <Link
-                    to="/signup"
-                    className="bg-[#307BC4] p-2 rounded-lg text-white font-bold border-b-[2px] border-[#1b4b7a] shadow-md"
-                  >
-                    Sign Up
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/signin"
-                    className="border-2 border-[#307BC4] p-2 text-[#307BC4] font-bold rounded-lg shadow-lg hover:shadow-md hover:shadow-[#307BC4] duration-200"
-                  >
-                    Sign In
-                  </Link>
-                </li>
-              </>
-            ) : (
-              <li>
-                <button
-                  onClick={SignOut}
-                  className="bg-[#307BC4] p-2 rounded-lg text-white font-bold"
-                >
-                  Sign Out
-                </button>
-              </li>
-            )}
-          </ul>
-        </div>
-
-        <i
-          className="fa-solid fa-bars block text-2xl text-secondColor cursor-pointer lg:hidden"
-          onClick={() => {
-            setSlidingMenu(!slidingMenu);
-          }}
-        ></i>
-      </header>
+        </header>
+      </div>
     </div>
   );
 };

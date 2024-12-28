@@ -2,7 +2,7 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
+import { Provider } from "react-redux";
 import App from "./pages/App";
 import Home from "./Router/Home";
 import SignIn from "./Router/signIn";
@@ -18,7 +18,7 @@ import DoctorsAndAppointments from "./Router/DoctorsAndAppointments.jsx";
 import Doctor from "./Router/doctor.jsx";
 import FindDoctor from "./pages/FindDoctor.jsx";
 import BookAnAppointment from "./Router/BookAnAppointment.jsx";
-
+import store from "./store/store.js";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
@@ -29,7 +29,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <Home />,
+        element: (
+     
+          <Home />
+
+      ),
       },
       {
         path: "*",
@@ -111,6 +115,8 @@ const router = createBrowserRouter([
 
 root.render(
   <React.StrictMode>
+   <Provider store={store}>
     <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );

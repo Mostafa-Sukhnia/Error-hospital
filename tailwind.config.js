@@ -23,7 +23,7 @@ module.exports = {
         },
       },
       animation: {
-        move: "move 3s linear infinite", // 2 ثانية مع حركة مستمرة
+        move: "move 3s linear infinite",
       },
     },
   },
@@ -37,4 +37,5 @@ module.exports = {
       addUtilities(newUtilities);
     },
   ],
+  darkMode:'class',
 };

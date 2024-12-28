@@ -1,12 +1,18 @@
-import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = []
+const initialState = {
+    mode: true,
+};
 
-const state = createSlice({
+const stateSlice = createSlice({
+    name: "state",
     initialState,
-    reducers:{
+    reducers: {
+        toggleMode: (state) => {
+            state.mode = !state.mode;
+        },
+    },
+});
 
-    }
-})
-
-export default state.reducer;
+export const { toggleMode } = stateSlice.actions;
+export default stateSlice.reducer;
