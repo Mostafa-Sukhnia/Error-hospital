@@ -118,8 +118,87 @@ const Home = () => {
             </ul>
           </div>
         </div>
-        {/* <div className="w-[100%] h-[100vh] lg:mt-[80px] bg-red-400"></div> */}
-        {/* <button onClick={SignOut}>sign out</button> */}
+        <div className="container mb-4">
+          <p className="text-center my-12 text-4xl font-bold text-siteColor dark:text-secondColor">
+            Our Values
+          </p>
+          <div className="flex flex-wrap gap-8 justify-center items-center">
+            <div className="w-[350px] h-[230px] flex flex-col items-center justify-center   p-4 rounded-xl shadow-md dark:bg-[#151515]">
+              <div className="flex justify-center items-center gap-2 text-center mb-3">
+                <div className=" w-[45px] h-[45px] text-lg  flex justify-center items-center p-4 rounded-full bg-secondColor">
+                  <i className="fa-regular fa-hospital  text-white"></i>
+                </div>
+                <h2 className="text-2xl text-siteColor font-bold dark:text-secondColor">
+                  Compassion
+                </h2>
+              </div>
+              <p className="text-center text-sm w-[90%] m-auto text-gray-400">
+                We understand that seeking medical care can be a stressful and
+                emotional experience, and we strive to create a welcoming and
+                supportive environment that puts our patients at ease and every
+                one.
+              </p>
+            </div>
+
+            <div className="w-[350px] h-[230px] flex flex-col items-center justify-center xl:translate-y-[-25px]  p-4 rounded-xl shadow-md dark:bg-[#151515]">
+              <div className="flex justify-center items-center gap-2 text-center mb-3">
+                <div className=" w-[45px] h-[45px] text-lg  flex justify-center items-center p-4 rounded-full bg-secondColor">
+                  <i className="fa-regular fa-hospital  text-white"></i>
+                </div>
+                <h2 className="text-2xl text-siteColor font-bold dark:text-secondColor">
+                  Excellence
+                </h2>
+              </div>
+              <p className="text-center text-sm w-[90%] m-auto text-gray-400">
+                We are committed to providing excellent medical care and
+                services to our patients. We believe in continuously improving
+                our skills, knowledge, and resources to ensure that we deliver
+                the highest quality care possible.
+              </p>
+            </div>
+            <div className="w-[350px] h-[230px] flex flex-col items-center justify-center   p-4 rounded-xl shadow-md dark:bg-[#151515]">
+              <div className="flex justify-center items-center gap-2 text-center mb-3">
+                <div className=" w-[45px] h-[45px] text-lg  flex justify-center items-center p-4 rounded-full bg-secondColor">
+                  <i className="fa-regular fa-hospital  text-white"></i>
+                </div>
+                <h2 className="text-2xl text-siteColor font-bold dark:text-secondColor">Integrity</h2>
+              </div>
+              <p className="text-center text-sm w-[90%] m-auto text-gray-400">
+                We believe in practicing medicine with integrity and honesty. We
+                are transparent in our communication and decision-making
+                processes, and we always put our patient's interests first &
+                provide best solution.
+              </p>
+            </div>
+            <div className="w-[350px] h-[230px] flex flex-col items-center justify-center   p-4 rounded-xl shadow-md dark:bg-[#151515]">
+              <div className="flex justify-center items-center gap-2 text-center mb-3">
+                <div className=" w-[45px] h-[45px] text-lg  flex justify-center items-center p-4 rounded-full bg-secondColor">
+                  <i className="fa-regular fa-hospital  text-white"></i>
+                </div>
+                <h2 className="text-2xl text-siteColor font-bold dark:text-secondColor">Respect</h2>
+              </div>
+              <p className="text-center text-sm w-[90%] m-auto text-gray-400">
+                We treat all individuals with respect and dignity, regardless of
+                their background, beliefs, or circumstances. We believe that
+                every person deserves to be treated with compassion and
+                kindness.
+              </p>
+            </div>
+            <div className="w-[350px] h-[230px] flex flex-col items-center justify-center   p-4 rounded-xl shadow-md dark:bg-[#151515]">
+              <div className="flex justify-center items-center gap-2 text-center mb-3">
+                <div className=" w-[45px] h-[45px] text-lg  flex justify-center items-center p-4 rounded-full bg-secondColor">
+                  <i class="fa-solid fa-hand-holding-heart text-white"></i>
+                </div>
+                <h2 className="text-2xl text-siteColor font-bold dark:text-secondColor">Teamwork</h2>
+              </div>
+              <p className="text-center text-sm w-[90%] m-auto text-gray-400">
+                We believe in working collaboratively with our team membersvand
+                other healthcare professionals to provide comprehensive and
+                effective care to our patients.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );
