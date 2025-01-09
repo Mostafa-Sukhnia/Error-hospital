@@ -8,7 +8,7 @@ const App = () => {
 
   return (
     <div className={`${mode? 'dark' :''}`}>
-      <div className={`${mode ? 'bg-[#212121]':''}`}>
+      <div className={`${mode ? 'bg-[#212121] text-white':''}`}>
       <Header />
       <Outlet/>
       <Footer />
