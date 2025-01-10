@@ -68,7 +68,11 @@ const Header = () => {
               </div>
             </div>
 
-            <div className="w-full h-[81vh] bg-gray-100 dark:bg-[#1E1E1E]"></div>
+            <div className="w-full h-[81vh] bg-gray-100 dark:bg-[#1E1E1E] flex flex-col">
+              <Link className=" hover:text-secondColor font-bold text-siteColor text-xl hover:translate-x-5 transition-all duration-200 p-8 border-b" to="/find-doctor">find doctor</Link>
+              <Link className=" hover:text-secondColor font-bold text-siteColor text-xl hover:translate-x-5 transition-all duration-200 p-8 border-b" to="/about">about</Link>
+              <Link className=" hover:text-secondColor font-bold text-siteColor text-xl hover:translate-x-5 transition-all duration-200 p-8 border-bx" to="/contact">contact</Link>
+            </div>
 
             <div className="w-full h-[12vh] shadow-lg flex items-center justify-between px-4 dark:bg-[#22262B]">
               <ul className="flex gap-4 w-full lg:hidden justify-between">
