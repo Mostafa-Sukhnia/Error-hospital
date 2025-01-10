@@ -78,7 +78,12 @@ const Header = () => {
               <ul className="flex gap-4 w-full lg:hidden justify-between">
                 <li>
                   {user ? (
-                            <button onClick={SignOut}>sign out</button>
+                    <button
+                    onClick={SignOut}
+                    className="bg-[#307BC4] p-2 rounded-lg text-white font-bold"
+                  >
+                    Sign Out
+                  </button>
                   ) : (
                     <Link
                       to="/signup"
