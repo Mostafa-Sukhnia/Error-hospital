@@ -27,7 +27,8 @@ const SignUp = () => {
   const [live, setLive] = useState("");
   const [gender, setGender] = useState("");
   const [from, setFrom] = useState("");
-  const [agreeToTheTermsConditions, setAgreeToTheTermsConditions] = useState(false);
+  const [agreeToTheTermsConditions, setAgreeToTheTermsConditions] =
+    useState(false);
   const [error, setError] = useState("");
   const [steps, setSteps] = useState(true);
   const [pointes, setPointes] = useState(".");
@@ -39,23 +40,22 @@ const SignUp = () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
-      
+
       await setDoc(doc(db, "users", user.uid), {
         fname,
-          lname,
-          birth,
-          from,
-          live,
-          gender,
-          phonNumber,
-          email:user.email,
-          role:'user',
-          isBanned: false,
-          img: "",
+        lname,
+        birth,
+        from,
+        live,
+        gender,
+        phonNumber,
+        email: user.email,
+        role: "user",
+        isBanned: false,
+        img: "",
       });
-      setSuccess(!success);  
+      setSuccess(!success);
     } catch (error) {
-      console.error(error);
       setError(error.message);
     }
   };
@@ -66,7 +66,6 @@ const SignUp = () => {
 
   const formHandileing = (e) => {
     e.preventDefault();
-    console.log(fname, lname, phonNumber, gender, live, from, birth);
   };
 
   const signUpHandling = async (e) => {
@@ -95,15 +94,13 @@ const SignUp = () => {
           gender,
           phonNumber,
           email,
-          role:'user',
+          role: "user",
           isBanned: false,
           img: "",
         });
         setSuccess(!success);
       } catch (err) {
-        console.error(err);
         setError(err);
-        console.log(error);
       }
     }
   };
@@ -214,7 +211,6 @@ const SignUp = () => {
                     className="bg-[#eee] p-3 pl-12 w-full h-[50px] border-[1.5px] border-gray-300 rounded-lg focus:border-secondColor focus:outline-none hover:border-l-secondColor hover:bg-white focus:bg-white duration-500 text-gray-400"
                     name="gender"
                     onChange={(e) => {
-                      console.log(e.target.value);
                       setGender(e.target.value);
                     }}
                   >
@@ -231,7 +227,6 @@ const SignUp = () => {
                   className=" h-[50px] bg-[#eee] p-3 text-gray-400 w-[50%]  border-[1.5px] border-gray-300 rounded-lg focus:border-secondColor focus:outline-none  hover:border-l-secondColor hover:bg-white focus:bg-white duration-500"
                   value={birth}
                   onChange={(e) => {
-                    console.log(e.target.value);
                     setBirth(e.target.value);
                   }}
                 />
@@ -245,7 +240,6 @@ const SignUp = () => {
                     className="bg-[#eee] p-3  w-full h-[50px]  border-[1.5px] border-gray-300 rounded-lg focus:border-secondColor focus:outline-none  hover:border-l-secondColor hover:bg-white focus:bg-white duration-500 text-gray-400"
                     name="provinces"
                     onChange={(e) => {
-                      console.log(e.target.value);
                       setFrom(e.target.value);
                     }}
                   >
@@ -297,14 +291,9 @@ const SignUp = () => {
                   </select>
                 </div>
                 <div>
-                  {/* <label className="text-gray-400">
-                    <i className="fa-solid fa-location-crosshairs text-blue-500"></i>{" "}
-                    
-                  </label> */}
                   <select
                     required
                     onChange={(e) => {
-                      console.log(e.target.value);
                       setLive(e.target.value);
                     }}
                     className="bg-[#eee] p-3  w-full h-[50px]  border-[1.5px] border-gray-300 rounded-lg focus:border-secondColor focus:outline-none  hover:border-l-secondColor hover:bg-white focus:bg-white duration-500 text-gray-400 scroll-bar-500"
@@ -371,10 +360,8 @@ const SignUp = () => {
                   transition={{ duration: 0.5, repeat: Infinity }}
                 ></i>
               </button>
-              {/* <p className="text-red-500">{error}!</p> */}
             </form>
           </div>
-          {/* *******+******** */}
           <form
             className={`flex flex-col my-[50px] gap-6 xl:pr-[100px] ${
               steps === false ? "flex" : "hidden"

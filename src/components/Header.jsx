@@ -20,14 +20,12 @@ const Header = () => {
         id: doc.id,
         ...doc.data(),
       }));
-      console.log(data);
     } catch (error) {
       console.error("Error fetching data: ", error);
     }
   };
 
   const SignOut = async () => {
-    console.log(auth.currentUser);
     await signOut(auth);
   };
   useEffect(() => {
@@ -69,9 +67,24 @@ const Header = () => {
             </div>
 
             <div className="w-full h-[81vh] bg-gray-100 dark:bg-[#1E1E1E] flex flex-col">
-              <Link className=" hover:text-secondColor font-bold text-siteColor text-xl hover:translate-x-5 transition-all duration-200 p-8 border-b" to="/find-doctor">find doctor</Link>
-              <Link className=" hover:text-secondColor font-bold text-siteColor text-xl hover:translate-x-5 transition-all duration-200 p-8 border-b" to="/about">about</Link>
-              <Link className=" hover:text-secondColor font-bold text-siteColor text-xl hover:translate-x-5 transition-all duration-200 p-8 border-bx" to="/contact">contact</Link>
+              <Link
+                className=" hover:text-secondColor font-bold text-siteColor text-xl hover:translate-x-5 transition-all duration-200 p-8 border-b"
+                to="/find-doctor"
+              >
+                find doctor
+              </Link>
+              <Link
+                className=" hover:text-secondColor font-bold text-siteColor text-xl hover:translate-x-5 transition-all duration-200 p-8 border-b"
+                to="/about"
+              >
+                about
+              </Link>
+              <Link
+                className=" hover:text-secondColor font-bold text-siteColor text-xl hover:translate-x-5 transition-all duration-200 p-8 border-bx"
+                to="/contact"
+              >
+                contact
+              </Link>
             </div>
 
             <div className="w-full h-[12vh] shadow-lg flex items-center justify-between px-4 dark:bg-[#22262B]">
@@ -79,11 +92,11 @@ const Header = () => {
                 <li>
                   {user ? (
                     <button
-                    onClick={SignOut}
-                    className="bg-[#307BC4] p-2 rounded-lg text-white font-bold"
-                  >
-                    Sign Out
-                  </button>
+                      onClick={SignOut}
+                      className="bg-[#307BC4] p-2 rounded-lg text-white font-bold"
+                    >
+                      Sign Out
+                    </button>
                   ) : (
                     <Link
                       to="/signup"

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../config/firebase";
 import { updateDoc, doc } from "firebase/firestore";
-import { collection,onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot } from "firebase/firestore";
 import app from "../config/firebase.js";
 import { getAuth, signOut } from "firebase/auth";
 import { getDoc } from "firebase/firestore";
-import { Link, useNavigate  } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const Admin = () => {
   const [data, setData] = useState([]);
   const [searchbyName, setSearchByName] = useState("");
@@ -21,13 +21,9 @@ const Admin = () => {
       }));
       setData(usersData); // تحديث البيانات
     });
-  
+
     return () => unsubscribe(); // إلغاء الاشتراك عند إزالة المكون
   }, []);
-  
-  
-
-
 
   // function Banned user
 
@@ -102,18 +98,17 @@ const Admin = () => {
 
   const SignOut = async () => {
     await signOut(auth);
-    navigate('/');
+    navigate("/");
   };
 
   return (
     <div className="container my-3 bg-white h-[96.5vh] rounded-xl border-[1px] border-gray-200 shadow-lg">
-      {/* Header */}
       <div className="w-full h-1/5 relative overflow-hidden">
         <div className="w-full h-full bg-transparent backdrop-blur-[10px] rounded-xl border-[1px] border-gray-200 relative z-10">
           <div className="w-full h-full p-4 flex justify-between items-center text-xl text-gray-500">
             <div className="p-4 flex items-center gap-4  bg-white rounded-xl shadow-xl">
               <Link to="doctors" title="Doctors and appointments">
-              <i className="fa-solid fa-business-time text-blue-500"></i>
+                <i className="fa-solid fa-business-time text-blue-500"></i>
               </Link>
               <p className="font-bold text-siteColor">
                 Welcom <span className="text-secondColor">A</span>dmin
@@ -132,7 +127,7 @@ const Admin = () => {
             </Link>
           </div>
         </div>
-        {/* Decorative Elements */}
+
         <div className="absolute w-[100px] h-[100px] bg-gradient-to-r from-purple-500 to-pink-500 shadow-xl shadow-purple-500/50 rounded-tl-[50%] rounded-tr-[40%] rounded-br-[60%] rounded-bl-[50%] top-10 left-10 animate-float"></div>
         <div className="absolute w-[120px] h-[120px] bg-gradient-to-r from-cyan-500 to-blue-500 shadow-xl shadow-blue-500/50 rounded-full bottom-16 right-12 animate-spin"></div>
         <div className="absolute w-[80px] h-[80px] bg-gradient-to-r from-yellow-400 to-orange-500 shadow-xl shadow-orange-400/50 rounded-tl-[50%] rounded-tr-[40%] rounded-br-[60%] rounded-bl-[50%] top-20 left-40 animate-wiggle"></div>
@@ -152,7 +147,6 @@ const Admin = () => {
         <i className="fa-solid fa-magnifying-glass absolute top-[50%] right-4 text-secondColor"></i>
       </div>
 
-      {/* Table Section */}
       <div className="w-full h-[70%] mt-4 rounded-xl bg-[#fafbfd] border-[1px] border-gray-200 overflow-auto">
         <table className="w-full mt-4 border-collapse table-auto">
           <thead>
@@ -174,7 +168,11 @@ const Admin = () => {
           <tbody>
             {data
               .filter((target) => {
-                if (target.fname.toLowerCase().includes(searchbyName.toLowerCase()) ) {
+                if (
+                  target.fname
+                    .toLowerCase()
+                    .includes(searchbyName.toLowerCase())
+                ) {
                   return target;
                 } else if (searchbyName === "") {
                   return target;
@@ -186,7 +184,9 @@ const Admin = () => {
                 <tr
                   key={target.id}
                   className={`border-b hover:bg-gray-100 text-[#9ca3af] hover:text-[#9ca3af] text-center ${
-                    target.isBanned ? "bg-red-300 text-gray-600 hover:bg-red-200 hover:text-gray-700" : ""
+                    target.isBanned
+                      ? "bg-red-300 text-gray-600 hover:bg-red-200 hover:text-gray-700"
+                      : ""
                   } duration-500`}
                 >
                   <td className="px-4 py-2 text-secondColor">{target.fname}</td>
@@ -248,17 +248,6 @@ const Admin = () => {
                               : "be admin"}
                             <i className="fa-solid fa-user-tie "></i>
                           </div>
-                          {/* <div
-                            className="flex items-center whitespace-nowrap px-2 py-1 justify-between rounded-b-md hover:text-white hover:bg-blue-500 text-sm gap-2"
-                            onClick={() => {
-                              doctor(target.id);
-                            }}
-                          >
-                            {target.role === "doctor"
-                              ? "be not doctor"
-                              : "be doctor"}
-                            <i className="fa-solid fa-stethoscope"></i>
-                          </div> */}
                         </div>
                       ) : null}
                     </td>

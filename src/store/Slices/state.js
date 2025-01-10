@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  mode: false,
+  mode: localStorage.getItem("mode") === "true",
 };
 
 const stateSlice = createSlice({
@@ -9,7 +9,9 @@ const stateSlice = createSlice({
   initialState,
   reducers: {
     toggleMode: (state) => {
-      state.mode = !state.mode;
+      const newMode = !state.mode;
+      localStorage.setItem("mode", newMode);
+      state.mode = newMode;
     },
   },
 });

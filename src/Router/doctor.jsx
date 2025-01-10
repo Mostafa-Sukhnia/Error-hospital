@@ -77,8 +77,10 @@ const Doctor = () => {
         <i className="fa-solid fa-stethoscope"></i>
       </h1>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 w-full" style={{marginTop:'0px'}}>
-        {/* بيانات الطبيب */}
+      <div
+        className="grid grid-cols-1 lg:grid-cols-3 gap-4 w-full"
+        style={{ marginTop: "0px" }}
+      >
         <div className="w-full flex flex-col items-center bg-gradient-to-t from-blue-200 to-[rgba(48,123,196,0.1)] rounded-xl border border-gray-100 shadow-sm">
           <div className="relative shadow-sm">
             <img
@@ -108,8 +110,6 @@ const Doctor = () => {
             <p className="text-[#307BC4]">+963 {doctor.phonNumber}</p>
           </div>
         </div>
-
-        {/* بيانات الطبيب على اليمين */}
         <div className="col-span-2 bg-gradient-to-b from-blue-300 to-[rgba(48,123,196,0.1)] w-full max-lg:mt-4 rounded-xl border border-gray-100 shadow-md p-4">
           <div className="bg-white w-full max-lg:mt-4 rounded-xl border border-gray-100 shadow-md p-4">
             <h2 className="text-xl font-semibold text-siteColor mb-6 text-center">
@@ -158,8 +158,6 @@ const Doctor = () => {
           </div>
         </div>
       </div>
-
-      {/* جدول المواعيد */}
       <div className="overflow-auto w-full bg-white rounded-md shadow-md mt-4 mb-4">
         <table className="w-full table-auto">
           <thead className="bg-blue-200 ">

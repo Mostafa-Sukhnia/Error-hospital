@@ -19,8 +19,10 @@ const SignIn = () => {
   const [userName, setUser] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState(false);
   const [showPassWord, setShowPassWord] = useState(false);
+  const [send, setSend] = useState(false);
+  const [breds, setBreds] = useState("");
+  const [success, setSuccess] = useState(null);
   const navigate = useNavigate();
 
   const signIn = async (e) => {
@@ -30,28 +32,20 @@ const SignIn = () => {
       const userRes = doc(db, "users", res.user.uid);
       const userr = await getDoc(userRes);
       const userData = userr.data();
-
       if (userData?.role === "admin") {
-        setSuccess(true);
-        setTimeout(() => {
-          navigate("/admin");
-        }, 3000);
+        setSuccess("admin");
       } else if (userData?.isBanned) {
         setError("You are banned from accessing the site.");
         await auth.signOut();
         alert("You are banned from accessing the site.");
+        navigate("/");
       } else {
-        console.log("User:", res.user.email);
-        setError(""); // مسح الأخطاء
-        setSuccess(true);
-        setTimeout(() => {
-          navigate("/");
-        }, 3000);
+        setError("");
+        navigate("/");
       }
+      setSuccess("");
     } catch (err) {
       setError("Email or password is wrong, Try again");
-      console.error("Error code:", err.code);
-      console.error("Error message:", err.message);
     }
   };
 
@@ -62,30 +56,40 @@ const SignIn = () => {
   const SignInWithGoogle = async () => {
     try {
       await signInWithPopup(auth, googleProvider);
-      console.log("Logged in with Google");
-      setSuccess(true);
+      setSuccess("");
     } catch (error) {
       console.error(error);
       setError(error.message);
     }
   };
 
-  return (
-    <div className="w-full h-screen overflow-hidden flex items-center font-poppins">
-      {success && (
-        <div className="w-screen h-screen bg-[#00000050] fixed top-0 left-0 z-[10000] flex justify-center items-center">
-          <div className="w-[500px] h-[300px] max-md:w-[300px] max-md:h-[200px] bg-white z-[9999] rounded-xl shadow-xl flex flex-col items-center justify-center text-siteColor">
-            <div className="text-center">
-              <i className="fa-solid fa-check text-[40px] text-white bg-green-500 border-4 px-4 py-3 rounded-full border-green-500"></i>
-            </div>
-            <p className="text-center mt-5">You are logged in!</p>
-            <p className="text-center">
-              Welcome back! We’re glad to see you again.
-            </p>
-            <p className="text-center">Redirecting you shortly...</p>
+  const successHandler = (x) => {
+    setInterval(() => {
+      setBreds(breds + ".");
+    }, 800);
+    setTimeout(() => {
+      navigate(`/${x}`);
+      clearInterval();
+    }, 3000);
+    return (
+      <div className="w-screen h-screen bg-[#00000050] fixed top-0 left-0 z-[10000] flex justify-center items-center">
+        <div className=" px-8 pt-14 pb-8 bg-white z-[9999] rounded-xl shadow-xl flex flex-col items-center justify-center text-siteColor relative">
+          <p className="text-center ">You are logged in!</p>
+          <p className="text-center">
+            Welcome back! We’re glad to see you again.
+          </p>
+          <p className="text-center">Redirecting you shortly{`${breds}`}</p>
+          <div className="flex justify-center items-center w-[85px] h-[85px]  bg-green-500 border-4  rounded-full border-green-500 absolute -top-10 left-[50%] translate-x-[-50%]">
+            <i className="fa-solid fa-check text-[40px] text-white"></i>
           </div>
         </div>
-      )}
+      </div>
+    );
+  };
+
+  return (
+    <div className="w-full h-screen overflow-hidden flex items-center font-poppins">
+      {success !== null ? successHandler(success) : ""}
       <form
         className="container mx-auto flex items-center gap-8"
         onSubmit={signIn}
@@ -158,24 +162,43 @@ const SignIn = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
               <i
-                className={`fa-regular fa-eye ${error ? "text-red-500" : ""} absolute top-[18px] right-4 z-[1000] text-siteColor cursor-pointer hover:text-secondColor duration-200 ${
+                className={`fa-regular fa-eye ${
+                  error ? "text-red-500" : ""
+                } absolute top-[18px] right-4 z-[1000] text-siteColor cursor-pointer hover:text-secondColor duration-200 ${
                   showPassWord ? "block" : "hidden"
                 }`}
                 onClick={showHandling}
               ></i>
               <i
-                className={`fa-regular fa-eye-slash ${error ? "text-red-500" : ""} absolute top-[18px] right-4 z-[1000] text-siteColor cursor-pointer hover:text-secondColor duration-200 ${
+                className={`fa-regular fa-eye-slash ${
+                  error ? "text-red-500" : ""
+                } absolute top-[18px] right-4 z-[1000] text-siteColor cursor-pointer hover:text-secondColor duration-200 ${
                   showPassWord ? "hidden" : "block"
                 }`}
                 onClick={showHandling}
               ></i>
             </div>
-            <input
-              required
-              type="submit"
-              className="bg-blue-500 text-white p-2 rounded-lg cursor-pointer"
-              value="Login"
-            />
+            <div
+              className={`w-full bg-blue-500 p-2 rounded-lg ${
+                send ? "cursor-auth" : "cursor-pointer"
+              } flex justify-center items-center`}
+            >
+              {send ? (
+                <div className="w-6 h-6 border-[2px] border-t-gray-300 border-x-gray-300 border-b-transparent rounded-full animate-spin"></div>
+              ) : (
+                <input
+                  required
+                  type="submit"
+                  className={` text-white  cursor-pointer z-30 ${
+                    send ? "opacity-50 cursor-not-allowed" : ""
+                  }`}
+                  value="Login"
+                  disabled={send}
+                  onClick={() => setSend(!send)}
+                />
+              )}
+            </div>
+
             <p className="text-red-500 text-[12px]">{error}</p>
             <div className="relative">
               <p className="text-center bg-white font-bold text-siteColor">
@@ -184,6 +207,7 @@ const SignIn = () => {
               <button
                 className="flex gap-3 items-center border-[1px] border-gray-300 pr-4 pl-2 py-2 rounded-lg w-full justify-between mt-[20px] hover:bg-[#eee] duration-500 hover:text-[#4286f5]"
                 onClick={SignInWithGoogle}
+                disabled={send}
               >
                 <img
                   src={GoogleLogo}

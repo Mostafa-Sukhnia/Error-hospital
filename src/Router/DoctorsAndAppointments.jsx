@@ -2,12 +2,13 @@ import { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 const UserComponent = () => {
-  const [doctors, setDoctors] = useState([]); 
-
+  const [doctors, setDoctors] = useState([]);
+  const mode = useSelector((state) => state.state.mode);
   const fetchDoctors = async () => {
     try {
-      const usersRef = collection(db, "users"); 
+      const usersRef = collection(db, "users");
       const querySnapshot = await getDocs(usersRef);
 
       const usersData = querySnapshot.docs.map((doc) => ({
@@ -23,14 +24,16 @@ const UserComponent = () => {
   };
 
   useEffect(() => {
-    fetchDoctors(); // استدعاء الدالة عند تحميل المكون
+    fetchDoctors();
   }, []);
 
   return (
-    <div className="container">
+    <div className={`container ${mode ? "dark" : ""}`}>
       <h1 className="text-4xl font-bold text-secondColor text-center mt-4 mb-8">
-      
-      <Link to="/admin"><i class="fa-solid fa-arrow-left"></i></Link> Our Doctors <i class="fa-solid fa-stethoscope"></i>
+        <Link to="/admin">
+          <i className="fa-solid fa-arrow-left"></i>
+        </Link>{" "}
+        Our Doctors <i className="fa-solid fa-stethoscope"></i>
       </h1>
       <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {doctors.map((doctor) => (
@@ -38,7 +41,10 @@ const UserComponent = () => {
             key={doctor.id}
             className="flex flex-col items-center bg-gradient-to-t from-[rgba(26,140,255,0.4)] to-[rgba(48,123,196,0.1)] rounded-xl border border-gray-100 shadow-sm"
           >
-            <Link to={`doctorAppointments/${doctor.id}`} className="relative cursor-pointer shadow-sm">
+            <Link
+              to={`doctorAppointments/${doctor.id}`}
+              className="relative cursor-pointer shadow-sm"
+            >
               <img
                 src={doctor.img}
                 alt="rere"
@@ -55,11 +61,15 @@ const UserComponent = () => {
               <p className="font-bold text-siteColor text-md">
                 {doctor.department || null}
               </p>
-              <p className="text-center text-[#274760] opacity-50 text-sm">
+              <p className="text-center text-[#274760] opacity-50 text-sm ">
                 Dr. {doctor.fname} is a highly skilled {doctor.department} with
                 expertise in the treatment of conditions related to{" "}
                 {doctor.department}. She is board-certified in{" "}
-                {doctor.department} and experience <span className="text-secondColor">{doctor.experienceYears}</span> Years.
+                {doctor.department} and experience{" "}
+                <span className="text-secondColor">
+                  {doctor.experienceYears}
+                </span>{" "}
+                Years.
               </p>
 
               <p className="text-[#307BC4] opacity-60">

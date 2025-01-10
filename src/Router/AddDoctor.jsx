@@ -1,8 +1,5 @@
 import React, { useState } from "react";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-} from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import app from "../config/firebase.js";
 import { db } from "../config/firebase.js";
@@ -28,7 +25,7 @@ const AddDoctor = () => {
   const [gender, setGender] = useState("");
   const [from, setFrom] = useState("");
   const [steps, setSteps] = useState(true);
-  const [error,setError]=useState('')
+  const [error, setError] = useState("");
   const [agreeToTheTermsConditions, setAgreeToTheTermsConditions] =
     useState(false);
   const [success, setSuccess] = useState(false);
@@ -41,7 +38,6 @@ const AddDoctor = () => {
 
   const formHandileing = (e) => {
     e.preventDefault();
-    console.log(fname, lname, phonNumber, gender, live, from, birth);
   };
 
   const signUpHandling = async (e) => {
@@ -134,7 +130,9 @@ const AddDoctor = () => {
           appointmentStart.setHours(hour, minute, 0, 0);
 
           const appointmentEnd = new Date(appointmentStart);
-          appointmentEnd.setMinutes(appointmentEnd.getMinutes() + intervalMinutes);
+          appointmentEnd.setMinutes(
+            appointmentEnd.getMinutes() + intervalMinutes
+          );
 
           // إضافة الموعد إلى المصفوفة
           appointments.push({
@@ -185,7 +183,6 @@ const AddDoctor = () => {
               onSubmit={(e) => formHandileing(e)}
               className="flex flex-col my-[50px] gap-6 xl:pr-[100px]"
             >
-            
               <div className=" flex gap-2">
                 <div className="relative">
                   <input
@@ -228,7 +225,12 @@ const AddDoctor = () => {
                   />
                   <i className="fa-solid fa-phone absolute top-[16px] left-4 text-gray-400"></i>
                 </div>
-                <select className="bg-[#eee] p-3  w-full h-[50px]  border-[1.5px] border-gray-300 rounded-lg focus:border-secondColor focus:outline-none  hover:border-l-secondColor hover:bg-white focus:bg-white duration-500 text-gray-400" onChange={(e)=>{setDepartment(e.target.value)}}>
+                <select
+                  className="bg-[#eee] p-3  w-full h-[50px]  border-[1.5px] border-gray-300 rounded-lg focus:border-secondColor focus:outline-none  hover:border-l-secondColor hover:bg-white focus:bg-white duration-500 text-gray-400"
+                  onChange={(e) => {
+                    setDepartment(e.target.value);
+                  }}
+                >
                   <option>Department</option>
                   <option>Emergency </option>
                   <option>Psychiatry </option>
@@ -253,7 +255,6 @@ const AddDoctor = () => {
                   <option>Infectious Diseases </option>
                   <option>Rehabilitation </option>
                 </select>
-                
               </div>
               <div className="flex gap-2  justify-center">
                 <div className="relative w-[50%]">
@@ -262,7 +263,6 @@ const AddDoctor = () => {
                     className="bg-[#eee] p-3 pl-12 w-full h-[50px] border-[1.5px] border-gray-300 rounded-lg focus:border-secondColor focus:outline-none hover:border-l-secondColor hover:bg-white focus:bg-white duration-500 text-gray-400"
                     name="gender"
                     onChange={(e) => {
-                      console.log(e.target.value);
                       setGender(e.target.value);
                     }}
                   >
@@ -279,7 +279,6 @@ const AddDoctor = () => {
                   className=" h-[50px] bg-[#eee] p-3 text-gray-400 w-[50%]  border-[1.5px] border-gray-300 rounded-lg focus:border-secondColor focus:outline-none  hover:border-l-secondColor hover:bg-white focus:bg-white duration-500"
                   value={birth}
                   onChange={(e) => {
-                    console.log(e.target.value);
                     setBirth(e.target.value);
                   }}
                 />
@@ -293,7 +292,6 @@ const AddDoctor = () => {
                     className="bg-[#eee] p-3  w-full h-[50px]  border-[1.5px] border-gray-300 rounded-lg focus:border-secondColor focus:outline-none  hover:border-l-secondColor hover:bg-white focus:bg-white duration-500 text-gray-400"
                     name="provinces"
                     onChange={(e) => {
-                      console.log(e.target.value);
                       setFrom(e.target.value);
                     }}
                   >
@@ -345,14 +343,9 @@ const AddDoctor = () => {
                   </select>
                 </div>
                 <div>
-                  {/* <label className="text-gray-400">
-                    <i className="fa-solid fa-location-crosshairs text-blue-500"></i>{" "}
-                    
-                  </label> */}
                   <select
                     required
                     onChange={(e) => {
-                      console.log(e.target.value);
                       setLive(e.target.value);
                     }}
                     className="bg-[#eee] p-3  w-full h-[50px]  border-[1.5px] border-gray-300 rounded-lg focus:border-secondColor focus:outline-none  hover:border-l-secondColor hover:bg-white focus:bg-white duration-500 text-gray-400 scroll-bar-500"
@@ -392,12 +385,23 @@ const AddDoctor = () => {
                       <option value="sheikh-hadid">Sheikh Hadid</option>
                     </optgroup>
                   </select>
-                  
                 </div>
-                <input type="number" className="bg-[#eee] p-3 w-[150px] h-[50px]  border-[1.5px] border-gray-300 rounded-lg focus:border-secondColor focus:outline-none  hover:border-l-secondColor hover:bg-white focus:bg-white duration-500 text-gray-400" placeholder="Years Experience" maxLength={2} minLength={1} onChange={e=>setExperienceYears(e.target.value)}/>
+                <input
+                  type="number"
+                  className="bg-[#eee] p-3 w-[150px] h-[50px]  border-[1.5px] border-gray-300 rounded-lg focus:border-secondColor focus:outline-none  hover:border-l-secondColor hover:bg-white focus:bg-white duration-500 text-gray-400"
+                  placeholder="Years Experience"
+                  maxLength={2}
+                  minLength={1}
+                  onChange={(e) => setExperienceYears(e.target.value)}
+                />
               </div>
-                <input type="text" className="bg-[#eee] p-3 w-full h-[50px]  border-[1.5px] border-gray-300 rounded-lg focus:border-secondColor focus:outline-none  hover:border-l-secondColor hover:bg-white focus:bg-white duration-500 text-gray-400" placeholder="url img" onChange={e=>setUrl(e.target.value)}/>
-             
+              <input
+                type="text"
+                className="bg-[#eee] p-3 w-full h-[50px]  border-[1.5px] border-gray-300 rounded-lg focus:border-secondColor focus:outline-none  hover:border-l-secondColor hover:bg-white focus:bg-white duration-500 text-gray-400"
+                placeholder="url img"
+                onChange={(e) => setUrl(e.target.value)}
+              />
+
               <button
                 className="bg-white p-3 font-medium hover:bg-blue-500 hover:text-white w-full h-[50px] border-2 rounded-lg focus:outline-none border-blue-500 duration-500 text-blue-500 flex items-center justify-between"
                 onClick={() => {
@@ -423,10 +427,8 @@ const AddDoctor = () => {
                   transition={{ duration: 0.5, repeat: Infinity }}
                 ></i>
               </button>
-              {/* <p className="text-red-500">{error}!</p> */}
             </form>
           </div>
-          {/* *******+******** */}
           <form
             className={`flex flex-col my-[50px] gap-6 xl:pr-[100px] ${
               steps === false ? "flex" : "hidden"

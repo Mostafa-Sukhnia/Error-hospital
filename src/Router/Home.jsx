@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import bg from "../Assets/image/bg-home.png";
 import home_photo from "../Assets/image/home-photo.png";
-import app from "../config/firebase.js";
-import { getAuth, signOut } from "firebase/auth";
 import Dark from "../components/Dark.jsx";
 import { useSelector } from "react-redux";
 import aboutUs from "../Assets/image/aboutUs.png";
@@ -26,13 +24,6 @@ import b7 from "../Assets/image/div.cs_brand.png";
 import b8 from "../Assets/image/b2.png";
 const Home = () => {
   const mode = useSelector((state) => state.state.mode);
-  const auth = getAuth(app);
-  console.log(auth);
-
-  const SignOut = async () => {
-    console.log(auth.currentUser);
-    await signOut(auth);
-  };
 
   const [usually, setUsually] = useState(3);
 
@@ -72,7 +63,7 @@ const Home = () => {
                 className="flex gap-4 items-center mt-10 text-siteColor max-lg:justify-center lg:hidden"
               >
                 <div className="border-2 border-siteColor px-2 py-[2px] rounded-full">
-                  <i class="fa-solid fa-play text-4xl pt-[1px] pl-[3px]"></i>
+                  <i className="fa-solid fa-play text-4xl pt-[1px] pl-[3px]"></i>
                 </div>
                 <p className="text-lg">See work</p>
               </a>
@@ -86,7 +77,7 @@ const Home = () => {
               <li>
                 <div className="flex justify-between gap-4">
                   <div>
-                    <i class="fa-solid fa-phone bg-[#307BC4] p-4 text-white rounded-full"></i>
+                    <i className="fa-solid fa-phone bg-[#307BC4] p-4 text-white rounded-full"></i>
                   </div>
                   <div>
                     <h4 className="text-[#274760] font-bold dark:text-blue-500">
@@ -103,7 +94,7 @@ const Home = () => {
               <li>
                 <div className="flex justify-between gap-4">
                   <div>
-                    <i class="fa-solid fa-syringe bg-[#307BC4] p-4 text-white rounded-full"></i>
+                    <i className="fa-solid fa-syringe bg-[#307BC4] p-4 text-white rounded-full"></i>
                   </div>
                   <div>
                     <h4 className="text-[#274760] font-bold dark:text-blue-500">
@@ -120,7 +111,7 @@ const Home = () => {
               <li>
                 <div className="flex justify-between gap-4">
                   <div>
-                    <i class="fa-solid fa-location-dot  bg-[#307BC4] text-white rounded-full px-[18px] py-[16px]"></i>
+                    <i className="fa-solid fa-location-dot  bg-[#307BC4] text-white rounded-full px-[18px] py-[16px]"></i>
                   </div>
                   <div>
                     <h4 className="text-[#274760] font-bold dark:text-blue-500">
@@ -140,7 +131,7 @@ const Home = () => {
                   className=" text-white px-5 rounded-full py-3 flex justify-center items-center gap-4 font-bold bg-gradient-to-r from-[#307BC4] to-[#274760]"
                 >
                   <p>Book Now</p>
-                  <i class="fa-solid fa-arrow-right"></i>
+                  <i className="fa-solid fa-arrow-right"></i>
                 </Link>
               </li>
             </ul>
@@ -219,7 +210,7 @@ const Home = () => {
             <div className="w-[350px] h-[230px] flex flex-col items-center justify-center   p-4 rounded-xl shadow-md dark:bg-[#151515]">
               <div className="flex justify-center items-center gap-2 text-center mb-3">
                 <div className=" w-[45px] h-[45px] text-lg  flex justify-center items-center p-4 rounded-full bg-secondColor">
-                  <i class="fa-solid fa-hand-holding-heart text-white"></i>
+                  <i className="fa-solid fa-hand-holding-heart text-white"></i>
                 </div>
                 <h2 className="text-2xl text-siteColor font-bold dark:text-secondColor">
                   Teamwork
@@ -431,11 +422,11 @@ const Home = () => {
                   impressed with the care he received.
                 </p>
                 <div className="flex items-center gap text-secondColor mt-10">
-                  <i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star-half"></i>
+                  <i className="fa-solid fa-star"></i>
+                  <i className="fa-solid fa-star"></i>
+                  <i className="fa-solid fa-star"></i>
+                  <i className="fa-solid fa-star"></i>
+                  <i className="fa-solid fa-star-half"></i>
                 </div>
               </div>
             </div>
@@ -458,7 +449,6 @@ const Home = () => {
                   : "dark:bg-darkColor"
               }`}
             >
-              {/* العنوان وزر التبديل */}
               <div className="flex justify-between items-center">
                 <p className="text-lg font-semibold text-gray-800 dark:text-secondColor">
                   What services does ProHealth offer?
@@ -495,7 +485,6 @@ const Home = () => {
                   : "dark:bg-darkColor"
               }`}
             >
-              {/* العنوان وزر التبديل */}
               <div className="flex justify-between items-center">
                 <p className="text-lg font-semibold text-gray-800 dark:text-secondColor">
                   What services does ProHealth offer?
@@ -532,7 +521,6 @@ const Home = () => {
                   : "dark:bg-darkColor"
               }`}
             >
-              {/* العنوان وزر التبديل */}
               <div className="flex justify-between items-center">
                 <p className="text-lg font-semibold text-gray-800 dark:text-secondColor">
                   What services does ProHealth offer?
@@ -569,7 +557,6 @@ const Home = () => {
                   : "dark:bg-darkColor"
               }`}
             >
-              {/* العنوان وزر التبديل */}
               <div className="flex justify-between items-center">
                 <p className="text-lg font-semibold text-gray-800 dark:text-secondColor">
                   What services does ProHealth offer?
@@ -606,7 +593,6 @@ const Home = () => {
                   : "dark:bg-darkColor "
               }`}
             >
-              {/* العنوان وزر التبديل */}
               <div className="flex justify-between items-center">
                 <p className="text-lg font-semibold text-gray-800 dark:text-secondColor">
                   What services does ProHealth offer?

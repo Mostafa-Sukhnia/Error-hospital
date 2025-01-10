@@ -6,8 +6,10 @@ import { updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 import app from "../config/firebase.js";
 import { getAuth } from "firebase/auth";
 import emailjs from "emailjs-com";
+import { useSelector } from "react-redux";
 const BookAnAppointment = () => {
   const { id } = useParams();
+  const mode = useSelector((state) => state.state.mode);
   const [doctor, setDoctor] = useState({});
   const [loading, setLoading] = useState(true);
   const [daySelected, setDaySelected] = useState("");
@@ -32,9 +34,6 @@ const BookAnAppointment = () => {
 
   const auth = getAuth(app);
   const bookHandler = async () => {
-    console.log(auth.currentUser.email,
-      auth.currentUser.displayName,
-      allDateSelected)
     try {
       // تحويل allDateSelected إلى كائن Date
       const selectedDate = new Date(allDateSelected);
@@ -84,11 +83,7 @@ const BookAnAppointment = () => {
           )
           .then(
             (response) => {
-              console.log(
-                "Email sent successfully!",
-                response.status,
-                response.text
-              );
+              //add animation
             },
             (error) => {
               console.error("Failed to send email:", error);
@@ -100,7 +95,6 @@ const BookAnAppointment = () => {
         auth.currentUser.displayName,
         allDateSelected
       );
-      console.log("Appointment updated successfully.");
     } catch (error) {
       console.error("Error updating appointment:", error);
     }
@@ -114,31 +108,34 @@ const BookAnAppointment = () => {
     );
   }
   return (
-    <div className="container flex flex-col items-center space-y-8 mt-4">
+    <div
+      className={`container flex flex-col items-center space-y-8 mt-4 ${
+        mode ? "dark" : ""
+      }`}
+    >
       <div
         className="grid grid-cols-1 lg:grid-cols-3 gap-4 w-full"
         style={{ marginTop: "0px" }}
       >
-        {/* بيانات الطبيب */}
-        <div className="w-full flex flex-col items-center bg-gradient-to-t from-blue-200 to-[rgba(48,123,196,0.1)] rounded-xl border border-gray-100 shadow-sm">
-          <div className="relative shadow-sm">
+        <div className="w-full flex flex-col items-center bg-gradient-to-t from-blue-200 to-[rgba(48,123,196,0.1)] rounded-xl border border-gray-100 shadow-sm dark:border-siteColor ">
+          <div className="relative shadow-sm z-30">
             <img
               src={doctor.img}
               alt="Doctor"
-              className="block w-[350px] h-[400px] object-cover  opacity-80 mix-blend-multiply"
+              className="block w-[350px] h-[400px] object-cover mix-blend-multiply"
             />
             <div className="w-[80%] bg-[#0d86ff8a] text-white absolute bottom-0 left-[10%] text-center p-2 rounded-t-xl">
               <p className="text-sm">{doctor.department} Department</p>
             </div>
           </div>
-          <div className="bg-white w-full h-[50%] text-center flex flex-col gap-6 pt-3 rounded-b-xl px-4 pb-3">
-            <p className="font-bold text-siteColor text-xl">
+          <div className="bg-white w-full h-[50%] text-center flex flex-col gap-6 pt-3 rounded-b-xl px-4 pb-3 dark:bg-darkColor">
+            <p className="font-bold text-siteColor text-xl dark:text-secondColor">
               Dr.{doctor.fname} {doctor.lname}
             </p>
-            <p className="font-bold text-siteColor text-md">
+            <p className="font-bold text-siteColor text-md dark:text-secondColor">
               {doctor.department}
             </p>
-            <p className="text-center text-[#2747607d] text-sm">
+            <p className="text-center text-[#2747607d] text-sm dark:text-gray-300">
               Dr. {doctor.fname} is a highly skilled {doctor.department} with
               expertise in the treatment of conditions related to{" "}
               {doctor.department}. She is board-certified in {doctor.department}{" "}
@@ -255,7 +252,6 @@ const BookAnAppointment = () => {
                             setAllDateSelected(
                               String(item.timeSlot.start.toDate())
                             );
-                            console.log(item.timeSlot.start.toDate());
                           }}
                           className={`${
                             allDateSelected !==
@@ -282,8 +278,7 @@ const BookAnAppointment = () => {
               >
                 <button
                   onClick={() => {
-                    console.log("hour:", allDateSelected);
-                    console.log(bookHandler());
+                    bookHandler();
                   }}
                 >
                   Book a place
