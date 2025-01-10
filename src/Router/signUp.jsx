@@ -31,16 +31,14 @@ const SignUp = () => {
     useState(false);
   const [error, setError] = useState("");
   const [steps, setSteps] = useState(true);
-  const [pointes, setPointes] = useState(".");
   const [showPassWord, setSwowPassWord] = useState(false);
-  const [success, setSuccess] = useState(false);
+  const [send, setSend] = useState(false);
   const navigate = useNavigate();
 
   const SignInWithGoogle = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
-
       await setDoc(doc(db, "users", user.uid), {
         fname,
         lname,
@@ -54,9 +52,10 @@ const SignUp = () => {
         isBanned: false,
         img: "",
       });
-      setSuccess(!success);
+      gohomeHandler()
     } catch (error) {
       setError(error.message);
+      setSend(!send);
     }
   };
 
@@ -85,7 +84,7 @@ const SignUp = () => {
           password
         );
         const user = userCredential.user;
-        await setDoc(doc(db, "users", user.uid), {
+       const data = await setDoc(doc(db, "users", user.uid), {
           fname,
           lname,
           birth,
@@ -98,43 +97,39 @@ const SignUp = () => {
           isBanned: false,
           img: "",
         });
-        setSuccess(!success);
+        gohomeHandler();
       } catch (err) {
-        setError(err);
+        setSend(!send);
+        setError(err.message);
       }
     }
   };
-  const SuccessHandling = () => {
-    setInterval(() => {
-      setPointes(pointes + ".");
-    }, 750);
 
-    setTimeout(() => {
-      navigate("/");
-    }, 3000);
+const gohomeHandler = () =>{
+  setSend(!send);
+      navigate('/');
+}
 
-    return (
-      <div className="w-screen h-screen bg-[#00000050] fixed top-0 left-0 z-[10000] flex justify-center items-center">
-        <div className="w-[500px] h-[300px] max-md:w-[300px] max-md:h-[200px] bg-white z-[9999] rounded-xl shadow-xl flex flex-col items-center justify-center text-siteColor">
-          <div className="text-center">
-            <i className="fa-solid fa-check text-[40px] text-white bg-green-500 border-4 px-4 py-3 rounded-full border-green-500"></i>
-          </div>
-          <p className="text-center mt-5">You are logged in!</p>
-          <p className="text-center">
-            Welcome back! We’re glad to see you again.
-          </p>
-          <p className="text-center">
-            We will redirect you to the home page shortly{pointes}
-          </p>
-        </div>
-      </div>
-    );
-  };
+const nextHandler = () => {
+  if (
+    fname !== "" &&
+    lname !== "" &&
+    phonNumber !== "" &&
+    gender !== "your Gender" &&
+    birth !== "" &&
+    from !== "" &&
+    live !== ""
+  ) {
+    setSteps(!steps);
+  } else {
+    setError("you should fill the inputs !");
+  }
+}
+
   return (
     <div className={`${mode ? "dark" : ""}`}>
       <div className="dark:bg-[#121212] w-full h-full">
         <div className="w-full  h-screen overflow-hidden flex items-center font-poppins container gap-8">
-          {success ? SuccessHandling() : ""}
           <div className="w-full max-md:w-[75%] max-md:m-auto h-[75vh]">
             <div>
               <Link
@@ -234,8 +229,8 @@ const SignUp = () => {
                     />
                   </div>
 
-                  <div className="flex gap-2">
-                    <div>
+                  <div className="flex gap-2 justify-center items-center">
+                    
                       <select
                         required
                         id="province"
@@ -291,8 +286,8 @@ const SignUp = () => {
                           Not from Syria
                         </option>
                       </select>
-                    </div>
-                    <div>
+                    
+                    
                       <select
                         required
                         onChange={(e) => {
@@ -341,31 +336,18 @@ const SignUp = () => {
                           <option value="sheikh-hadid">Sheikh Hadid</option>
                         </optgroup>
                       </select>
-                    </div>
+                    
                   </div>
+                  <p className="text-sm text-red-500">{error}</p>
                   <button
-                    className="bg-white p-3 font-medium hover:bg-blue-500 hover:text-white w-full h-[50px] border-2 rounded-lg focus:outline-none border-blue-500 duration-500 text-blue-500 flex items-center justify-between dark:bg-darkColor dark:text-secondColor "
+                    className="bg-white p-3 font-medium hover:bg-blue-500 hover:text-white w-full h-[50px] border-2 rounded-lg focus:outline-none border-blue-500 duration-200 text-blue-500 flex items-center justify-between dark:bg-darkColor dark:text-secondColor "
                     onClick={() => {
-                      if (
-                        fname !== "" &&
-                        lname !== "" &&
-                        phonNumber !== "" &&
-                        gender !== "your Gender" &&
-                        birth !== "" &&
-                        from !== "" &&
-                        live !== ""
-                      ) {
-                        setSteps(!steps);
-                      } else {
-                        setError("you should fill the inputs");
-                      }
+                      nextHandler()
                     }}
                   >
-                    <p>Next</p>
+                    <p className="duration-100">Next</p>
                     <i
                       className="fa-solid fa-right-long"
-                      animate={{ x: [0, 5, 0] }}
-                      transition={{ duration: 0.5, repeat: Infinity }}
                     ></i>
                   </button>
                 </form>
@@ -459,18 +441,30 @@ const SignUp = () => {
                     </Link>
                   </div>
                 </div>
-                <input
-                  value="submit"
-                  type="submit"
-                  className="bg-white p-3 text-center font-medium hover:bg-blue-500 hover:text-white  w-full h-[50px]  border-[2px]  rounded-lg  focus:outline-none  border-blue-500 duration-500 text-blue-500dark:bg-darkColor  dark:bg-darkColor dark:text-gray-400"
-                />
+                  <p className="text-red-500 text-sm">{error}</p>
+                {send ? (
+                  <div className="w-full rounded-md bg-blue-500  p-3 h-[50px] flex justify-center items-center">
+                    <div className="w-6 h-6  border-[2px] border-t-white border-x-white border-b-transparent rounded-full animate-spin"></div>
+                  </div>
+                ) : (
+                  <div >
+                  <input
+                    value="submit"
+                    type="submit"
+                    className="bg-white  p-3 text-center font-medium text-blue-500 hover:bg-blue-500 hover:text-white  w-full h-[50px]  border-[2px]  rounded-lg  focus:outline-none  border-blue-500 duration-500 text-blue-500dark:bg-darkColor  dark:bg-darkColor dark:text-gray-400 cursor-pointer"
+                    onClick={(e) => {setSend(!send);signUpHandling(e)}}
+                    disabled={send}
+                  />
+                  </div>
+                )}
                 <p className="text-center  font-bold dark:text-secondColor text-siteColor">
                   Or SignUp with
                 </p>
 
                 <button
                   className="flex gap-3 items-center border-[1px] border-gray-300 pr-4 pl-2 py-2 rounded-lg w-full justify-between hover:bg-[#eee] duration-500 hover:text-[#4286f5]"
-                  onClick={SignInWithGoogle}
+                  onClick={()=>{SignInWithGoogle();setSend(!send)}}
+                  disabled={send}
                 >
                   <img
                     src={GoogleLogo}

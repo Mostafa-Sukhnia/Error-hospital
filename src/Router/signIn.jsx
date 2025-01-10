@@ -22,7 +22,6 @@ const SignIn = () => {
   const [send, setSend] = useState(false);
   const navigate = useNavigate();
   const mode = useSelector((state) => state.state.mode);
-  // دالة لتسجيل الدخول باستخدام البريد وكلمة المرور
   const signIn = async (e) => {
     e.preventDefault();
     setSend(true);
@@ -159,7 +158,7 @@ const SignIn = () => {
                 } flex justify-center items-center`}
               >
                 {send ? (
-                  <div className="w-6 h-6 border-[2px] border-t-gray-300 border-x-gray-300 border-b-transparent rounded-full animate-spin"></div>
+                  <div className="w-6 h-6 border-[2px] border-t-white border-x-white border-b-transparent rounded-full animate-spin"></div>
                 ) : (
                   <input
                     required
