@@ -6,6 +6,7 @@ module.exports = {
       colors: {
         siteColor: "#274760",
         secondColor: "#307BC4",
+        darkColor:"#151515"
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
