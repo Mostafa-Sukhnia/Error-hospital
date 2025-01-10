@@ -9,7 +9,7 @@ const Footer = () => {
   return (
     <div className={`${mode ? "dark" : ""}`}>
       <div className="relative w-full min-h-[45vh] bg-gradient-to-t from-[#86BBF1] to-[#D2EAEF] mt-[170px] z-20 dark:from-[#1c1c1c] dark:to-[#111111]">
-        <div className="absolute top-[-72.5px] w-full bg-[#D2EAEF] h-[20vh] clip-triangle z-10 dark:bg-[#111111]"></div>
+        <div className="absolute top-[-72.5px] max-sm:top-[-90px] w-full bg-[#D2EAEF] h-[20vh] clip-triangle z-10 dark:bg-[#111111]"></div>
 
         <div className="absolute top-[-200px] left-[50%] translate-x-[-50%] z-20">
           <img
