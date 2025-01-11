@@ -173,11 +173,15 @@ const SignIn = () => {
               </div>
               <p className="text-red-500 text-[12px]">{error}</p>
               <div className="relative">
-                <p className="text-center font-bold text-siteColor">
-                  Or login with
-                </p>
+                <div className="w-full flex justify-center items-center gap-4 ">
+                  <div className="w-[100%] h-[1px] bg-siteColor dark:bg-white"></div>
+                  <p className="text-center font-bold text-siteColor dark:text-white">
+                    OR
+                  </p>
+                  <div className="w-[100%] h-[1px] bg-siteColor dark:bg-white"></div>
+                </div>
                 <button
-                  className="flex gap-3 items-center border-[1px] border-gray-300 pr-4 pl-2 py-2 rounded-lg w-full justify-between mt-[20px] hover:bg-[#eee] duration-500 hover:text-[#4286f5]"
+                  className="flex gap-3 items-center border-[1px] border-gray-300 pr-4 pl-2 py-2 rounded-lg w-full justify-between mt-[40px] hover:bg-[#eee] duration-500 hover:text-[#4286f5]"
                   onClick={signInWithGoogle}
                   disabled={send}
                 >
@@ -186,7 +190,9 @@ const SignIn = () => {
                     alt="Sign in with Google"
                     className="w-[40px]"
                   />
-                  <p className="font-bold dark:text-secondColor">Google</p>
+                  <p className="font-bold dark:text-secondColor text-siteColor">
+                    Google
+                  </p>
                 </button>
               </div>
             </div>

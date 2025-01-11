@@ -52,7 +52,7 @@ const SignUp = () => {
         isBanned: false,
         img: "",
       });
-      gohomeHandler()
+      gohomeHandler();
     } catch (error) {
       setError(error.message);
       setSend(!send);
@@ -84,7 +84,7 @@ const SignUp = () => {
           password
         );
         const user = userCredential.user;
-       const data = await setDoc(doc(db, "users", user.uid), {
+        const data = await setDoc(doc(db, "users", user.uid), {
           fname,
           lname,
           birth,
@@ -105,26 +105,26 @@ const SignUp = () => {
     }
   };
 
-const gohomeHandler = () =>{
-  setSend(!send);
-      navigate('/');
-}
+  const gohomeHandler = () => {
+    setSend(!send);
+    navigate("/");
+  };
 
-const nextHandler = () => {
-  if (
-    fname !== "" &&
-    lname !== "" &&
-    phonNumber !== "" &&
-    gender !== "your Gender" &&
-    birth !== "" &&
-    from !== "" &&
-    live !== ""
-  ) {
-    setSteps(!steps);
-  } else {
-    setError("you should fill the inputs !");
-  }
-}
+  const nextHandler = () => {
+    if (
+      fname !== "" &&
+      lname !== "" &&
+      phonNumber !== "" &&
+      gender !== "your Gender" &&
+      birth !== "" &&
+      from !== "" &&
+      live !== ""
+    ) {
+      setSteps(!steps);
+    } else {
+      setError("you should fill the inputs !");
+    }
+  };
 
   return (
     <div className={`${mode ? "dark" : ""}`}>
@@ -230,125 +230,114 @@ const nextHandler = () => {
                   </div>
 
                   <div className="flex gap-2 justify-center items-center">
-                    
-                      <select
-                        required
-                        id="province"
-                        className="bg-[#eee] p-3  w-full h-[50px]  border-[1.5px] border-gray-300 rounded-lg focus:border-secondColor focus:outline-none  hover:border-l-secondColor hover:bg-white focus:bg-white duration-500 text-gray-400 dark:bg-darkColor dark:text-gray-400"
-                        name="provinces"
-                        onChange={(e) => {
-                          setFrom(e.target.value);
-                        }}
-                      >
-                        <option className="bg-black" value="">
-                          your province
-                        </option>
-                        <option className="bg-black" value="aleppo">
-                          Aleppo
-                        </option>
-                        <option className="bg-black" value="damascus">
-                          Damascus
-                        </option>
-                        <option className="bg-black" value="homs">
-                          Homs
-                        </option>
-                        <option className="bg-black" value="hama">
-                          Hama
-                        </option>
-                        <option className="bg-black" value="idlib">
-                          Idlib
-                        </option>
-                        <option className="bg-black" value="latakia">
-                          Latakia
-                        </option>
-                        <option className="bg-black" value="tartus">
-                          Tartus
-                        </option>
-                        <option className="bg-black" value="daraa">
-                          Daraa
-                        </option>
-                        <option className="bg-black" value="sweida">
-                          As-Suwayda
-                        </option>
-                        <option className="bg-black" value="deir-ez-zor">
-                          Deir ez-Zor
-                        </option>
-                        <option className="bg-black" value="raqqa">
-                          Raqqa
-                        </option>
-                        <option className="bg-black" value="hasakah">
-                          Al-Hasakah
-                        </option>
-                        <option className="bg-black" value="quneitra">
-                          Quneitra
-                        </option>
-                        <option className="bg-black" value="not-from-syria">
-                          Not from Syria
-                        </option>
-                      </select>
-                    
-                    
-                      <select
-                        required
-                        onChange={(e) => {
-                          setLive(e.target.value);
-                        }}
-                        className="bg-[#eee] p-3  w-full h-[50px]  border-[1.5px] border-gray-300 rounded-lg focus:border-secondColor focus:outline-none  hover:border-l-secondColor hover:bg-white focus:bg-white duration-500 text-gray-400 scroll-bar-500 dark:bg-darkColor dark:text-gray-400"
-                        name="villages"
-                      >
-                        <optgroup
-                          className="bg-black"
-                          label="Idlib Countryside"
-                        >
-                          <option value=" ">your loacation</option>
-                          <option value="aqrabat">aqrabat</option>
-                          <option value="Atma">Atma</option>
-                          <option value="sarmada">Sarmada</option>
-                          <option value="al-dana">Al-Dana</option>
-                          <option value="maaratalnuman">Maarat Al-Numan</option>
-                          <option value="kafr-nabl">Kafr Nabl</option>
-                          <option value="binnish">Binnish</option>
-                          <option value="taftanaz">Taftanaz</option>
-                          <option value="ariha">Ariha</option>
-                          <option value="killi">Killi</option>
-                          <option value="harim">Harim</option>
-                          <option value="salqin">Salqin</option>
-                          <option value="qahtaniya">Qahtaniya</option>
-                          <option value="darkush">Darkush</option>
-                        </optgroup>
-                        <optgroup
-                          className="bg-black"
-                          label="Aleppo Countryside"
-                        >
-                          <option value="al-bab">Al-Bab</option>
-                          <option value="jarablus">Jarablus</option>
-                          <option value="azaz">Azaz</option>
-                          <option value="mare">Mare</option>
-                          <option value="tel-rifaat">Tel Rifaat</option>
-                          <option value="suran">Suran</option>
-                          <option value="qabasin">Qabasin</option>
-                          <option value="bza'a">Bza'a</option>
-                          <option value="afrin">Afrin</option>
-                          <option value="jindires">Jindires</option>
-                          <option value="sharan">Sharan</option>
-                          <option value="bulbul">Bulbul</option>
-                          <option value="rajo">Rajo</option>
-                          <option value="sheikh-hadid">Sheikh Hadid</option>
-                        </optgroup>
-                      </select>
-                    
+                    <select
+                      required
+                      id="province"
+                      className="bg-[#eee] p-3  w-full h-[50px]  border-[1.5px] border-gray-300 rounded-lg focus:border-secondColor focus:outline-none  hover:border-l-secondColor hover:bg-white focus:bg-white duration-500 text-gray-400 dark:bg-darkColor dark:text-gray-400"
+                      name="provinces"
+                      onChange={(e) => {
+                        setFrom(e.target.value);
+                      }}
+                    >
+                      <option className="bg-black" value="">
+                        your province
+                      </option>
+                      <option className="bg-black" value="aleppo">
+                        Aleppo
+                      </option>
+                      <option className="bg-black" value="damascus">
+                        Damascus
+                      </option>
+                      <option className="bg-black" value="homs">
+                        Homs
+                      </option>
+                      <option className="bg-black" value="hama">
+                        Hama
+                      </option>
+                      <option className="bg-black" value="idlib">
+                        Idlib
+                      </option>
+                      <option className="bg-black" value="latakia">
+                        Latakia
+                      </option>
+                      <option className="bg-black" value="tartus">
+                        Tartus
+                      </option>
+                      <option className="bg-black" value="daraa">
+                        Daraa
+                      </option>
+                      <option className="bg-black" value="sweida">
+                        As-Suwayda
+                      </option>
+                      <option className="bg-black" value="deir-ez-zor">
+                        Deir ez-Zor
+                      </option>
+                      <option className="bg-black" value="raqqa">
+                        Raqqa
+                      </option>
+                      <option className="bg-black" value="hasakah">
+                        Al-Hasakah
+                      </option>
+                      <option className="bg-black" value="quneitra">
+                        Quneitra
+                      </option>
+                      <option className="bg-black" value="not-from-syria">
+                        Not from Syria
+                      </option>
+                    </select>
+
+                    <select
+                      required
+                      onChange={(e) => {
+                        setLive(e.target.value);
+                      }}
+                      className="bg-[#eee] p-3  w-full h-[50px]  border-[1.5px] border-gray-300 rounded-lg focus:border-secondColor focus:outline-none  hover:border-l-secondColor hover:bg-white focus:bg-white duration-500 text-gray-400 scroll-bar-500 dark:bg-darkColor dark:text-gray-400"
+                      name="villages"
+                    >
+                      <optgroup className="bg-black" label="Idlib Countryside">
+                        <option value=" ">your loacation</option>
+                        <option value="aqrabat">aqrabat</option>
+                        <option value="Atma">Atma</option>
+                        <option value="sarmada">Sarmada</option>
+                        <option value="al-dana">Al-Dana</option>
+                        <option value="maaratalnuman">Maarat Al-Numan</option>
+                        <option value="kafr-nabl">Kafr Nabl</option>
+                        <option value="binnish">Binnish</option>
+                        <option value="taftanaz">Taftanaz</option>
+                        <option value="ariha">Ariha</option>
+                        <option value="killi">Killi</option>
+                        <option value="harim">Harim</option>
+                        <option value="salqin">Salqin</option>
+                        <option value="qahtaniya">Qahtaniya</option>
+                        <option value="darkush">Darkush</option>
+                      </optgroup>
+                      <optgroup className="bg-black" label="Aleppo Countryside">
+                        <option value="al-bab">Al-Bab</option>
+                        <option value="jarablus">Jarablus</option>
+                        <option value="azaz">Azaz</option>
+                        <option value="mare">Mare</option>
+                        <option value="tel-rifaat">Tel Rifaat</option>
+                        <option value="suran">Suran</option>
+                        <option value="qabasin">Qabasin</option>
+                        <option value="bza'a">Bza'a</option>
+                        <option value="afrin">Afrin</option>
+                        <option value="jindires">Jindires</option>
+                        <option value="sharan">Sharan</option>
+                        <option value="bulbul">Bulbul</option>
+                        <option value="rajo">Rajo</option>
+                        <option value="sheikh-hadid">Sheikh Hadid</option>
+                      </optgroup>
+                    </select>
                   </div>
                   <p className="text-sm text-red-500">{error}</p>
                   <button
                     className="bg-white p-3 font-medium hover:bg-blue-500 hover:text-white w-full h-[50px] border-2 rounded-lg focus:outline-none border-blue-500 duration-200 text-blue-500 flex items-center justify-between dark:bg-darkColor dark:text-secondColor "
                     onClick={() => {
-                      nextHandler()
+                      nextHandler();
                     }}
                   >
                     <p className="duration-100">Next</p>
-                    <i
-                      className="fa-solid fa-right-long"
-                    ></i>
+                    <i className="fa-solid fa-right-long"></i>
                   </button>
                 </form>
               </div>
@@ -441,29 +430,39 @@ const nextHandler = () => {
                     </Link>
                   </div>
                 </div>
-                  <p className="text-red-500 text-sm">{error}</p>
+                <p className="text-red-500 text-sm">{error}</p>
                 {send ? (
                   <div className="w-full rounded-md bg-blue-500  p-3 h-[50px] flex justify-center items-center">
                     <div className="w-6 h-6  border-[2px] border-t-white border-x-white border-b-transparent rounded-full animate-spin"></div>
                   </div>
                 ) : (
-                  <div >
-                  <input
-                    value="submit"
-                    type="submit"
-                    className="bg-white  p-3 text-center font-medium text-blue-500 hover:bg-blue-500 hover:text-white  w-full h-[50px]  border-[2px]  rounded-lg  focus:outline-none  border-blue-500 duration-500 text-blue-500dark:bg-darkColor  dark:bg-darkColor dark:text-gray-400 cursor-pointer"
-                    onClick={(e) => {setSend(!send);signUpHandling(e)}}
-                    disabled={send}
-                  />
+                  <div>
+                    <input
+                      value="submit"
+                      type="submit"
+                      className="bg-white  p-3 text-center font-medium text-blue-500 hover:bg-blue-500 hover:text-white  w-full h-[50px]  border-[2px]  rounded-lg  focus:outline-none  border-blue-500 duration-500 text-blue-500dark:bg-darkColor  dark:bg-darkColor dark:text-gray-400 cursor-pointer"
+                      onClick={(e) => {
+                        setSend(!send);
+                        signUpHandling(e);
+                      }}
+                      disabled={send}
+                    />
                   </div>
                 )}
-                <p className="text-center  font-bold dark:text-secondColor text-siteColor">
-                  Or SignUp with
-                </p>
+                <div className="w-full flex justify-center items-center gap-4 ">
+                  <div className="w-[100%] h-[1px] bg-siteColor dark:bg-white"></div>
+                  <p className="text-center font-bold text-siteColor dark:text-white">
+                    OR
+                  </p>
+                  <div className="w-[100%] h-[1px] bg-siteColor dark:bg-white"></div>
+                </div>
 
                 <button
                   className="flex gap-3 items-center border-[1px] border-gray-300 pr-4 pl-2 py-2 rounded-lg w-full justify-between hover:bg-[#eee] duration-500 hover:text-[#4286f5]"
-                  onClick={()=>{SignInWithGoogle();setSend(!send)}}
+                  onClick={() => {
+                    SignInWithGoogle();
+                    setSend(!send);
+                  }}
                   disabled={send}
                 >
                   <img
@@ -471,7 +470,9 @@ const nextHandler = () => {
                     alt="sign in with google"
                     className="w-[40px]"
                   />{" "}
-                  <p className="font-bold dark:text-secondColor">Google</p>
+                  <p className="font-bold dark:text-secondColor text-siteColor">
+                    Google
+                  </p>
                 </button>
                 <p
                   onClick={() => setSteps(!steps)}
