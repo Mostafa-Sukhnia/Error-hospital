@@ -451,7 +451,7 @@ const SignUp = () => {
                 )}
                 <div className="w-full flex justify-center items-center gap-4 ">
                   <div className="w-[100%] h-[1px] bg-siteColor dark:bg-white"></div>
-                  <p className="text-center font-bold text-siteColor dark:text-white">
+                  <p className="text-center text-siteColor dark:text-white">
                     OR
                   </p>
                   <div className="w-[100%] h-[1px] bg-siteColor dark:bg-white"></div>
