@@ -25,7 +25,9 @@ import b8 from "../Assets/image/b2.png";
 const Home = () => {
   const mode = useSelector((state) => state.state.mode);
   const [loading, setLoading] = useState(true);
-  window.onload = ()=>{setLoading(!loading)};
+  window.onload = () => {
+    setLoading(!loading);
+  };
   const [usually, setUsually] = useState(3);
 
   const usuallyHandler = (x) => {
@@ -37,9 +39,11 @@ const Home = () => {
   };
   return (
     <>
-    {loading && (<div className="w-screen h-screen fixed top-0 l-0 bg-white flex justify-center items-center z-[1000]">
-      <div className="w-12 h-12 border-[4px] border-t-gray-400 border-x-gray-400 border-b-transparent rounded-full animate-spin"></div>
-    </div>)}
+      {loading && (
+        <div className="w-screen h-screen fixed top-0 l-0 bg-white flex justify-center items-center z-[1000]">
+          <div className="w-12 h-12 border-[4px] border-t-gray-400 border-x-gray-400 border-b-transparent rounded-full animate-spin"></div>
+        </div>
+      )}
       <div className={`${mode ? "dark" : ""} `}>
         <div
           className={`relative w-full h-[93.1vh] bg-cover bg-center flex gap-4 justify-center items-center`}
