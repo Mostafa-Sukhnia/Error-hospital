@@ -24,22 +24,25 @@ const ProtectedAdmin = ({ children }) => {
             setRole(userData.role);
           } else {
             console.error("No user document found!");
-            navigate("/"); // إعادة التوجيه إذا لم يتم العثور على المستخدم
+            navigate("/");
           }
         } catch (err) {
           console.error("Error fetching user role:", err);
-          navigate("/"); // إعادة التوجيه عند حدوث خطأ
+          navigate("/");
         } finally {
-          setRoleLoading(false); // تأكيد انتهاء التحميل
+          setRoleLoading(false);
         }
       } else {
-        setRoleLoading(false); // إذا لم يكن المستخدم مسجلاً
+        setRoleLoading(false);
         navigate("/");
       }
     };
-
-    fetchUserRole();
-  }, [user, navigate]);
+  
+    if (!loading) { // تأكد من أن حالة التحميل من useAuthState انتهت
+      fetchUserRole();
+    }
+  }, [user, loading, navigate]);
+  
 
   // عرض شاشة التحميل أثناء انتظار بيانات المستخدم أو الدور
   if (loading || roleLoading) {
