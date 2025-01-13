@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import bg from "../Assets/image/bg-home.png";
 import home_photo from "../Assets/image/home-photo.png";
@@ -24,10 +24,14 @@ import b7 from "../Assets/image/div.cs_brand.png";
 import b8 from "../Assets/image/b2.png";
 const Home = () => {
   const mode = useSelector((state) => state.state.mode);
-  const [loading, setLoading] = useState(true);
-  window.onload = () => {
-    setLoading(false);
-  };
+  const [loading, setLoading] = useState();
+  
+  useEffect(()=>{
+    window.onload = () => {
+      setLoading(false);
+    };
+  },[])
+
   const [usually, setUsually] = useState(3);
 
   const usuallyHandler = (x) => {
