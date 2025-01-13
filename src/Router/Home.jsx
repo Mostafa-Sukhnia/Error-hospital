@@ -26,7 +26,7 @@ const Home = () => {
   const mode = useSelector((state) => state.state.mode);
   const [loading, setLoading] = useState(true);
   window.onload = () => {
-    setLoading(!loading);
+    setLoading(false);
   };
   const [usually, setUsually] = useState(3);
 
