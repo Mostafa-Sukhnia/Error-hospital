@@ -34,6 +34,7 @@ const ProtectedAdmin = ({ children }) => {
         }
       } else {
         setRoleLoading(false); // إذا لم يكن المستخدم مسجلاً
+        navigate("/");
       }
     };
 
@@ -57,11 +58,11 @@ const ProtectedAdmin = ({ children }) => {
   }
 
   // السماح بالوصول إذا كان الدور "admin"
- if(role !== ''){
-  if (role === "admin") {
-    return children;
+  if (role !== "") {
+    if (role === "admin") {
+      return children;
+    }
   }
- }
 
   // إعادة التوجيه إلى الصفحة الرئيسية إذا لم يكن الدور "admin"
   return <Navigate to="/" replace />;
