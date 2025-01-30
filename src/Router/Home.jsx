@@ -22,15 +22,26 @@ import b5 from "../Assets/image/div.cs_brand-5.png";
 import b6 from "../Assets/image/div.cs_brand-6.png";
 import b7 from "../Assets/image/div.cs_brand.png";
 import b8 from "../Assets/image/b2.png";
+import homezip from '../Assets/image/home-photo.zip';
 const Home = () => {
   const mode = useSelector((state) => state.state.mode);
-  const [loading, setLoading] = useState();
-  
-  useEffect(()=>{
-    window.onload = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const handleLoad = () => {
       setLoading(false);
     };
-  },[])
+
+    if (document.readyState === 'complete') {
+      handleLoad();
+    } else {
+      window.addEventListener('load', handleLoad);
+    }
+
+    return () => {
+      window.removeEventListener('load', handleLoad);
+    };
+  }, []);
 
   const [usually, setUsually] = useState(3);
 
