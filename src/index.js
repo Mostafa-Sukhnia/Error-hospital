@@ -19,6 +19,9 @@ import Doctor from "./Router/doctor.jsx";
 import FindDoctor from "./pages/FindDoctor.jsx";
 import BookAnAppointment from "./Router/BookAnAppointment.jsx";
 import store from "./store/store.js";
+import About from "./Router/about.jsx";
+import Contact from "./Router/contact.jsx";
+import PageNotFound from './Router/Error.jsx'
 
 const container = document.getElementById("root");
 const root = createRoot(container);
@@ -37,7 +40,7 @@ const router = createBrowserRouter([
       },
       {
         path: "*",
-        element: <div>Page Not Found</div>,
+        element: <PageNotFound/>,
       },
       {
         path: "BookPosition",
@@ -45,6 +48,22 @@ const router = createBrowserRouter([
           <ProtectedPages>
             <BookPostaiation />
           </ProtectedPages>
+        ),
+      },
+      {
+        path: "contact",
+        element: (
+        
+            <Contact />
+         
+        ),
+      },
+      {
+        path: "about",
+        element: (
+          
+            <About />
+          
         ),
       },
       {

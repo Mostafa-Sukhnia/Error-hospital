@@ -12,19 +12,13 @@ module.exports = {
         poppins: ["Poppins", "sans-serif"],
       },
       keyframes: {
-        move: {
-          "0%": { bottom: "-100%", right: "-100%" },
-
-          "30%": { bottom: "0", right: "0" },
-
-          "60%": { bottom: "5%", right: "50%" },
-
-          "80%": { bottom: "0", right: "70%" },
-          "100%": { bottom: "-100%", right: "100%" },
-        },
+        shimmer: {
+          '0%': { backgroundPosition: '200% 0' },
+          '100%': { backgroundPosition: '-200% 0' },
+        }
       },
       animation: {
-        move: "move 3s linear infinite",
+        shimmer: 'shimmer 2s linear infinite',
       },
     },
   },

@@ -19,10 +19,10 @@ const Admin = () => {
         id: doc.id,
         ...doc.data(),
       }));
-      setData(usersData); // تحديث البيانات
+      setData(usersData); 
     });
 
-    return () => unsubscribe(); // إلغاء الاشتراك عند إزالة المكون
+    return () => unsubscribe();
   }, []);
 
   // function Banned user
